@@ -1,0 +1,9 @@
+# - name: Install python3-dnf
+#   command: dnf install -y python3-dnf
+#   become: true
+
+- name: Update packages
+  dnf:
+    name: "*"
+    state: latest
+  become: true
