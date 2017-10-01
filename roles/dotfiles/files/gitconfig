@@ -1,0 +1,30 @@
+[user]
+email = jon.dufresne@gmail.com
+name = Jon Dufresne
+
+[core]
+editor = emacsclient -c
+
+[alias]
+br = branch
+co = checkout
+ci = commit
+st = status
+pushf = push --force-with-lease
+meld = difftool --tool=meld --dir-diff
+
+[commit]
+verbose = true
+
+[diff]
+tool = meld
+
+[difftool]
+prompt = false
+
+[merge]
+ff = false
+tool = meld
+
+[pull]
+ff = only

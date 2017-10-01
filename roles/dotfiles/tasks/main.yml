@@ -1,0 +1,6 @@
+- name: Copy dot files
+  file:
+    src: "{{ item }}"
+    dest: "~/.{{ item }}"
+  with_items:
+    - gitconfig

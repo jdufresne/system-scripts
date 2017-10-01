@@ -5,4 +5,7 @@
   become: true
 
 - include_role:
+    name: dotfiles
+
+- include_role:
     name: emacs
