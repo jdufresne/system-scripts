@@ -1,0 +1,21 @@
+- name: Install Emacs
+  dnf:
+    name: emacs
+  become: true
+
+- name: Emacs configuration
+  git:
+    repo: git@github.com:jdufresne/emacs-init.git
+    dest: ~/.emacs.d
+
+- name: Install Emacs client desktop file
+  copy:
+    dest: ~/.local/share/applications/
+    src: emacsclient.desktop
+
+- name: Enable Emacs daemon
+  systemd:
+    name: emacs
+    user: yes
+    enabled: yes
+    state: started

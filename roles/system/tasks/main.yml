@@ -3,3 +3,6 @@
     name: "*"
     state: latest
   become: true
+
+- include_role:
+    name: emacs
