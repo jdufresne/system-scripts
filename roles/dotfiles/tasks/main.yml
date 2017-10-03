@@ -1,6 +1,7 @@
 - name: Copy dot files
-  file:
+  copy:
     src: "{{ item }}"
     dest: "~/.{{ item }}"
   with_items:
     - gitconfig
+    - hgrc

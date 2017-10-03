@@ -1,0 +1,18 @@
+[ui]
+username = Jon Dufresne <jon.dufresne@gmail.com>
+editor = emacsclient -c
+style = phases
+
+[extensions]
+color =
+evolve =
+extdiff =
+histedit =
+purge =
+rebase =
+shelve =
+strip =
+topic =
+
+[extdiff]
+cmd.meld =
