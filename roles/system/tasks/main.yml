@@ -4,6 +4,11 @@
     state: latest
   become: true
 
+- name: Install libselinux-python
+  dnf:
+    name: libselinux-python
+  become: true
+
 - include_role:
     name: dotfiles
 
