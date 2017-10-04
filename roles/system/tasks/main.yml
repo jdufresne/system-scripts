@@ -15,4 +15,4 @@
 - include_role:
     name: emacs
 
-- include: packages.yml
+- include: php.yml
