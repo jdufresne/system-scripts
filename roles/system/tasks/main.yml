@@ -15,4 +15,6 @@
 - include_role:
     name: emacs
 
+- include: postgresql.yml
+
 - include: php.yml
