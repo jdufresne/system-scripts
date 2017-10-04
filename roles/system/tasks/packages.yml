@@ -1,0 +1,8 @@
+- name: Install packages
+  dnf:
+    name: "{{ item }}"
+  with_items:
+    - php-pecl-amqp
+    - php-pecl-redis
+    - php-pgsql
+  become: true
