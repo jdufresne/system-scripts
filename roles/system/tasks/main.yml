@@ -1,9 +1,3 @@
-- name: Update packages
-  dnf:
-    name: "*"
-    state: latest
-  become: true
-
 - name: Install libselinux-python
   dnf:
     name: libselinux-python
@@ -22,3 +16,9 @@
     name: redis
 
 - include: php.yml
+
+- name: Update packages
+  dnf:
+    name: "*"
+    state: latest
+  become: true
