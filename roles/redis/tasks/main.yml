@@ -1,6 +1,11 @@
+- name: Install Redis
+  dnf:
+    name: redis
+  become: true
+  notify: Restart Redis
+
 - name: Enable Redis server
   systemd:
     name: redis
     enabled: yes
-    state: started
   become: true
