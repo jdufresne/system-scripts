@@ -2,12 +2,14 @@
   dnf:
     name: emacs
   become: true
+  notify: Restart Emacs daemon
 
 - name: Emacs configuration
   git:
     repo: git@github.com:jdufresne/emacs-init.git
     dest: ~/.emacs.d
     force: yes
+  notify: Restart Emacs daemon
 
 - name: Install Emacs client desktop file
   copy:
@@ -19,4 +21,3 @@
     name: emacs
     user: yes
     enabled: yes
-    state: started
