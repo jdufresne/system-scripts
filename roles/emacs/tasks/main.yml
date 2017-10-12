@@ -1,6 +1,7 @@
 - name: Install Emacs
   dnf:
     name: emacs
+    state: latest
   become: true
   notify: Restart Emacs daemon
 

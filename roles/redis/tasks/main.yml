@@ -1,6 +1,7 @@
 - name: Install Redis
   dnf:
     name: redis
+    state: latest
   become: true
   notify: Restart Redis
 
