@@ -2,6 +2,7 @@
   dnf:
     name: "{{ item }}"
   with_items:
+    - php
     - php-pecl-amqp
     - php-pecl-oauth
     - php-pecl-redis

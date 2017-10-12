@@ -28,7 +28,8 @@
 - include_role:
     name: redis
 
-- include: php.yml
+- include_role:
+    name: php
 
 - name: Update packages
   dnf:
