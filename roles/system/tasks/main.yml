@@ -3,6 +3,19 @@
     name: libselinux-python
   become: true
 
+- name: Install DNF plugins
+  dnf:
+    name: dnf-automatic
+    state: latest
+  become: true
+  notify: Restart DNF automatic timer
+
+- name: Enable DNF automatic timer
+  systemd:
+    name: dnf-automatic.timer
+    enabled: yes
+  become: true
+
 - include_role:
     name: dotfiles
 
