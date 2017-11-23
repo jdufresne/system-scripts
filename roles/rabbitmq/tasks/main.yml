@@ -1,6 +1,7 @@
 - name: Install RabbitMQ server
   dnf:
     name: rabbitmq-server
+    state: latest
   become: true
   notify: Restart RabbitMQ server
 
