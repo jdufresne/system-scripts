@@ -31,6 +31,9 @@
 - include_role:
     name: php
 
+- include_role:
+    name: rabbitmq
+
 - name: Update packages
   dnf:
     name: "*"
