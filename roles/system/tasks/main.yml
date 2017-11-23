@@ -23,16 +23,16 @@
     name: emacs
 
 - include_role:
-    name: postgresql
-
-- include_role:
-    name: redis
-
-- include_role:
     name: php
 
 - include_role:
+    name: postgresql
+
+- include_role:
     name: rabbitmq
+
+- include_role:
+    name: redis
 
 - name: Update packages
   dnf:
