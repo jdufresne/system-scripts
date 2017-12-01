@@ -5,6 +5,21 @@
   become: true
   notify: Restart PostgreSQL
 
+- name: PostgreSQL non-durable settings
+  lineinfile:
+    path: /var/lib/pgsql/data/postgresql.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - regexp: '^#?fsync'
+      line: 'fsync = off'
+    - regexp: '^#?synchronous_commit'
+      line: 'synchronous_commit = off'
+    - regexp: '^#?full_page_writes'
+      line: 'full_page_writes = off'
+  become: true
+  notify: Restart PostgreSQL
+
 - name: Enable PostgreSQL server
   systemd:
     name: postgresql
