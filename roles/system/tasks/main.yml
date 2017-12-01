@@ -23,6 +23,9 @@
     name: emacs
 
 - include_role:
+    name: nodejs
+
+- include_role:
     name: php
 
 - include_role:

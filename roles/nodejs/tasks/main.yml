@@ -1,0 +1,15 @@
+- name: Create temporary download location
+  tempfile:
+  register: nvm
+
+- name: Fetch NVM
+  get_url:
+    url: https://raw.githubusercontent.com/creationix/nvm/master/install.sh
+    dest: "{{ nvm.path }}"
+    force: true
+
+- name: Install NVM
+  command: bash "{{ nvm.path }}"
+
+- name: Install Node.js
+  shell: . ~/.nvm/nvm.sh && nvm install 7.3
