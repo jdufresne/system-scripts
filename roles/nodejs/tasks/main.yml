@@ -12,4 +12,4 @@
   command: bash "{{ nvm.path }}"
 
 - name: Install Node.js
-  shell: . ~/.nvm/nvm.sh && nvm install 7.3
+  shell: . ~/.nvm/nvm.sh && nvm install "{{ nodejs_version }}"
