@@ -1,14 +1,13 @@
 - name: Install RabbitMQ server
   dnf:
     name: rabbitmq-server
-    state: latest
   become: true
-  notify: Restart RabbitMQ server
 
 - name: Enable RabbitMQ server
   systemd:
     name: rabbitmq-server
     enabled: yes
+    state: started
   become: true
 
 - name: Copy RabbitMQ sudoers file

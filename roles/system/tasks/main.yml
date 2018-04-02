@@ -6,14 +6,13 @@
 - name: Install DNF plugins
   dnf:
     name: dnf-automatic
-    state: latest
   become: true
-  notify: Restart DNF automatic timer
 
 - name: Enable DNF automatic timer
   systemd:
     name: dnf-automatic-download.timer
     enabled: yes
+    state: started
   become: true
 
 - include_role:
@@ -36,9 +35,3 @@
 
 - include_role:
     name: redis
-
-- name: Update packages
-  dnf:
-    name: "*"
-    state: latest
-  become: true

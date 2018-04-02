@@ -1,5 +1,0 @@
-- name: Restart DNF automatic timer
-  systemd:
-    name: dnf-automatic-download.timer
-    state: restarted
-  become: true
