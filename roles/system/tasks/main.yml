@@ -3,6 +3,11 @@
     name: libselinux-python
   become: true
 
+- name: Install ansible-lint
+  dnf:
+    name: ansible-lint
+  become: true
+
 - name: Install DNF plugins
   dnf:
     name: dnf-automatic
