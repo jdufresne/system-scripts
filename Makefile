@@ -1,6 +1,6 @@
 .PHONY: all
 all: /usr/bin/ansible-playbook
-	ansible-playbook --verbose system.yml
+	$< --verbose system.yml
 
 
 /usr/bin/ansible-playbook:
