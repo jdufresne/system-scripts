@@ -1,2 +1,0 @@
-ansible
-git+https://github.com/rpm-software-management/dnf#egg=dnf
