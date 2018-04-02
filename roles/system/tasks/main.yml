@@ -15,23 +15,30 @@
     state: started
   become: true
 
-- include_role:
+- name: Install dot files
+  include_role:
     name: dotfiles
 
-- include_role:
+- name: Install and configure Emacs
+  include_role:
     name: emacs
 
-- include_role:
+- name: Install and configure Node.js
+  include_role:
     name: nodejs
 
-- include_role:
+- name: Install and configure PHP
+  include_role:
     name: php
 
-- include_role:
+- name: Install and configure PostgreSQL
+  include_role:
     name: postgresql
 
-- include_role:
+- name: Install and configure RabbitMQ
+  include_role:
     name: rabbitmq
 
-- include_role:
+- name: Install and configure Redis
+  include_role:
     name: redis
