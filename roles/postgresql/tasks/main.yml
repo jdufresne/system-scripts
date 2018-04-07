@@ -5,6 +5,12 @@
   become: true
   notify: Restart PostgreSQL
 
+- name: Enable PostgreSQL server
+  systemd:
+    name: postgresql
+    enabled: yes
+  become: true
+
 - name: PostgreSQL non-durable settings
   lineinfile:
     path: /var/lib/pgsql/data/postgresql.conf
@@ -19,9 +25,3 @@
       line: 'full_page_writes = off'
   become: true
   notify: Restart PostgreSQL
-
-- name: Enable PostgreSQL server
-  systemd:
-    name: postgresql
-    enabled: yes
-  become: true
