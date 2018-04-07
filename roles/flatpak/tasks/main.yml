@@ -1,0 +1,10 @@
+- name: Add Flathub repository
+  command: flatpak remote-add --user flathub https://flathub.org/repo/flathub.flatpakrepo
+  args:
+    creates: ~/.local/share/flatpak/repo/refs/remotes/flathub
+
+- name: Install flatpak applications
+  command: "flatpak install --user -y flathub {{ item }}"
+  with_items:
+    - com.skype.Client
+    - com.slack.Slack

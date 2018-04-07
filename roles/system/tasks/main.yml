@@ -28,6 +28,10 @@
   include_role:
     name: emacs
 
+- name: Install flatpak applications
+  include_role:
+    name: flatpak
+
 - name: Install and configure NGINX
   include_role:
     name: nginx
