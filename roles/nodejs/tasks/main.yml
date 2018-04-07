@@ -1,15 +1,14 @@
-- name: Create temporary download location
-  tempfile:
-  register: nvm
-
-- name: Fetch NVM
-  get_url:
-    url: https://raw.githubusercontent.com/creationix/nvm/master/install.sh
-    dest: "{{ nvm.path }}"
-    force: true
+- name: Clone NVM git repository
+  git:
+    repo: git@github.com:creationix/nvm.git
+    dest: "{{ playbook_dir }}/nvm"
 
 - name: Install NVM
-  command: bash "{{ nvm.path }}"
+  command: bash "{{ playbook_dir }}/nvm/install.sh"
+  args:
+    creates: ~/.nvm
 
 - name: Install Node.js
   shell: . ~/.nvm/nvm.sh && nvm install "{{ nodejs_version }}"
+  args:
+    creates: "~/.nvm/versions/node/v{{ nodejs_version }}.*"
