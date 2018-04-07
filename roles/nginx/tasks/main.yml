@@ -1,0 +1,25 @@
+- name: Install NGINX
+  dnf:
+    name: nginx
+  become: true
+  notify: Restart NGINX
+
+- name: Enable NGINX
+  systemd:
+    name: nginx
+    enabled: yes
+  become: true
+
+- name: Copy NGINX configuration
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+  become: true
+  notify: Restart NGINX
+
+- name: Copy NGINX location configuration
+  copy:
+    src: erezlife.conf
+    dest: /etc/nginx/default.d/
+  become: true
+  notify: Restart NGINX
