@@ -8,6 +8,7 @@
   systemd:
     name: nginx
     enabled: yes
+    state: started
   become: true
 
 - name: Copy NGINX configuration
