@@ -40,13 +40,17 @@
   include_role:
     name: nodejs
 
-- name: Install and configure PHP
+- name: Install PHP
   include_role:
     name: php
 
 - name: Install and configure PostgreSQL
   include_role:
     name: postgresql
+
+- name: Install Python
+  include_role:
+    name: python
 
 - name: Install and configure RabbitMQ
   include_role:
