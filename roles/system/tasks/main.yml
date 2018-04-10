@@ -1,24 +1,24 @@
 - name: Install libselinux-python
   dnf:
     name: libselinux-python
-  become: true
+  become: yes
 
 - name: Install ansible-lint
   dnf:
     name: ansible-lint
-  become: true
+  become: yes
 
 - name: Install DNF plugins
   dnf:
     name: dnf-automatic
-  become: true
+  become: yes
 
 - name: Enable DNF automatic timer
   systemd:
     name: dnf-automatic-install.timer
     enabled: yes
     state: started
-  become: true
+  become: yes
 
 - name: Install dot files
   include_role:

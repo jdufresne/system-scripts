@@ -1,18 +1,18 @@
 - name: Install RabbitMQ server
   dnf:
     name: rabbitmq-server
-  become: true
+  become: yes
 
 - name: Enable RabbitMQ server
   systemd:
     name: rabbitmq-server
     enabled: yes
     state: started
-  become: true
+  become: yes
 
 - name: Copy RabbitMQ sudoers file
   copy:
     dest: /etc/sudoers.d
     src: rabbitmq
     mode: 0440
-  become: true
+  become: yes

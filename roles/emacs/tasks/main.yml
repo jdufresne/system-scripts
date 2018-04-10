@@ -1,7 +1,7 @@
 - name: Install Emacs
   dnf:
     name: emacs
-  become: true
+  become: yes
   notify: Restart Emacs daemon
 
 - name: Enable Emacs daemon

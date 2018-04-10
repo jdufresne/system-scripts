@@ -3,13 +3,13 @@
     name: postgresql
     enabled: yes
     state: started
-  become: true
+  become: yes
 
 - name: Copy pg_hba.conf
   copy:
     src: pg_hba.conf
     dest: /var/lib/pgsql/data/pg_hba.conf
-  become: true
+  become: yes
   notify: Restart PostgreSQL
 
 - name: PostgreSQL non-durable settings
@@ -24,5 +24,5 @@
       line: 'synchronous_commit = off'
     - regexp: '^#?full_page_writes'
       line: 'full_page_writes = off'
-  become: true
+  become: yes
   notify: Restart PostgreSQL
