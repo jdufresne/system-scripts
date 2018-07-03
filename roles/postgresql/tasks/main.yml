@@ -24,5 +24,7 @@
       line: 'synchronous_commit = off'
     - regexp: '^#?full_page_writes'
       line: 'full_page_writes = off'
+    - regexp: '^#?checkpoint_timeout'
+      line: 'checkpoint_timeout = 24h'
   become: yes
   notify: Restart PostgreSQL
