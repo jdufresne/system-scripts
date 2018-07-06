@@ -1,14 +1,4 @@
-- name: Clone NVM git repository
-  git:
-    repo: git@github.com:creationix/nvm.git
-    dest: "{{ playbook_dir }}/nvm"
-
-- name: Install NVM
-  command: bash "{{ playbook_dir }}/nvm/install.sh"
-  args:
-    creates: ~/.nvm
-
 - name: Install Node.js
-  shell: . ~/.nvm/nvm.sh && nvm install "{{ nodejs_version }}"
-  args:
-    creates: "~/.nvm/versions/node/v{{ nodejs_version }}.*"
+  dnf:
+    name: nodejs
+  become: yes
