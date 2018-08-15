@@ -6,5 +6,6 @@
     - php-pecl-amqp
     - php-pecl-oauth
     - php-pecl-redis
+    - php-pecl-xdebug
     - php-pgsql
   become: yes
