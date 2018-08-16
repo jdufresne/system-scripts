@@ -2,14 +2,6 @@
   dnf:
     name: emacs
   become: yes
-  notify: Restart Emacs daemon
-
-- name: Enable Emacs daemon
-  systemd:
-    name: emacs
-    user: yes
-    enabled: yes
-    state: started
 
 - name: Emacs configuration
   git:
@@ -22,3 +14,10 @@
   copy:
     dest: ~/.local/share/applications/
     src: emacsclient.desktop
+
+- name: Enable Emacs daemon
+  systemd:
+    name: emacs
+    user: yes
+    enabled: yes
+    state: started

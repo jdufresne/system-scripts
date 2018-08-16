@@ -2,14 +2,6 @@
   dnf:
     name: nginx
   become: yes
-  notify: Restart NGINX
-
-- name: Enable NGINX
-  systemd:
-    name: nginx
-    enabled: yes
-    state: started
-  become: yes
 
 - name: Copy NGINX configuration
   copy:
@@ -24,3 +16,10 @@
     dest: /etc/nginx/default.d/
   become: yes
   notify: Restart NGINX
+
+- name: Enable NGINX
+  systemd:
+    name: nginx
+    enabled: yes
+    state: started
+  become: yes
