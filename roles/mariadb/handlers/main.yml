@@ -1,0 +1,5 @@
+- name: Restart MariaDB
+  systemd:
+    name: mariadb
+    state: restarted
+  become: yes

@@ -48,6 +48,10 @@
   include_role:
     name: postgresql
 
+- name: Install and configure MariaDB
+  include_role:
+    name: mariadb
+
 - name: Install Python
   include_role:
     name: python
