@@ -1,3 +1,12 @@
+- name: Install MariaDB
+  dnf:
+    name: "{{ item }}"
+  with_items:
+    - mariadb
+    - mariadb-common
+    - mariadb-server
+  become: yes
+
 - name: Copy utf8.cnf
   copy:
     src: utf8.cnf
@@ -7,3 +16,12 @@
     mode: 0644
   become: yes
   notify: Restart MariaDB
+
+- name: Start MariaDB server
+  systemd:
+    name: mariadb
+    state: started
+  become: yes
+
+- name:
+  shell: mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
