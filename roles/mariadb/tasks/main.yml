@@ -9,11 +9,14 @@
 
 - name: Copy utf8.cnf
   copy:
-    src: utf8.cnf
+    src: "{{ item }}"
     dest: /etc/my.cnf.d/
     owner: root
     group: root
     mode: 0644
+  with_items:
+    - utf8.cnf
+    - nondurable.cnf
   become: yes
   notify: Restart MariaDB
 
