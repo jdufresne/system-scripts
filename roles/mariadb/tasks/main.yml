@@ -4,10 +4,11 @@
   with_items:
     - mariadb
     - mariadb-common
+    - mariadb-devel
     - mariadb-server
   become: yes
 
-- name: Copy utf8.cnf
+- name: Copy MariaDB configuration
   copy:
     src: "{{ item }}"
     dest: /etc/my.cnf.d/
