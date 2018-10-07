@@ -6,6 +6,13 @@
     - postgresql-contrib
     - postgresql-devel
     - postgresql-server
+    - python2-psycopg2  # For postgresql_user
+  become: yes
+
+- name: Initialize PostgreSQL
+  command: postgresql-setup --initdb
+  args:
+    creates: /var/lib/pgsql/data/postgresql.conf
   become: yes
 
 - name: Copy pg_hba.conf
@@ -54,3 +61,8 @@
     enabled: yes
     state: started
   become: yes
+
+- name: Add PostgreSQL user
+  postgresql_user:
+    name: "{{ ansible_user }}"
+    role_attr_flags: SUPERUSER
