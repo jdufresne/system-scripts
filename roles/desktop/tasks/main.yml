@@ -1,6 +1,6 @@
 - name: Install psutil
   dnf:
-    name: python2-psutil
+    name: python2-psutil  # For dconf
   become: yes
 
 - name: Enable Night Light
