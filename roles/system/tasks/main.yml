@@ -63,3 +63,7 @@
 - name: Install and configure Redis
   include_role:
     name: redis
+
+- name: Configure desktop
+  include_role:
+    name: desktop

@@ -1,0 +1,9 @@
+- name: Install psutil
+  dnf:
+    name: python2-psutil
+  become: yes
+
+- name: Enable Night Light
+  dconf:
+    key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
+    value: "true"
