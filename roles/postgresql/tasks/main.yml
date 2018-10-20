@@ -1,12 +1,11 @@
 - name: Install PostgreSQL
   dnf:
-    name: "{{ item }}"
-  with_items:
-    - postgresql
-    - postgresql-contrib
-    - postgresql-devel
-    - postgresql-server
-    - python2-psycopg2  # For postgresql_user
+    name:
+      - postgresql
+      - postgresql-contrib
+      - postgresql-devel
+      - postgresql-server
+      - python2-psycopg2  # For postgresql_user
   become: yes
 
 - name: Initialize PostgreSQL

@@ -1,11 +1,10 @@
 - name: Install PHP
   dnf:
-    name: "{{ item }}"
-  with_items:
-    - composer
-    - php-pecl-amqp
-    - php-pecl-oauth
-    - php-pecl-redis
-    - php-pecl-xdebug
-    - php-pgsql
+    name:
+      - composer
+      - php-pecl-amqp
+      - php-pecl-oauth
+      - php-pecl-redis
+      - php-pecl-xdebug
+      - php-pgsql
   become: yes

@@ -1,6 +1,4 @@
 - name: Install Python
   dnf:
-    name: "{{ item }}"
-  with_items:
-    - python3-flake8
+    name: python3-flake8
   become: yes

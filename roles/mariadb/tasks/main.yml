@@ -1,11 +1,10 @@
 - name: Install MariaDB
   dnf:
-    name: "{{ item }}"
-  with_items:
-    - mariadb
-    - mariadb-common
-    - mariadb-devel
-    - mariadb-server
+    name:
+      - mariadb
+      - mariadb-common
+      - mariadb-devel
+      - mariadb-server
   become: yes
 
 - name: Copy MariaDB configuration
