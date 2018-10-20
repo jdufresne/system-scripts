@@ -3,10 +3,11 @@
     name: nginx
   become: yes
 
-- name: Copy NGINX configuration
-  copy:
-    src: nginx.conf
-    dest: /etc/nginx/nginx.conf
+- name: Remove default location
+  replace:
+    path: /etc/nginx/nginx.conf
+    regexp: '^\s*location / {\n\s*}\n$'
+    replace: ''
   become: yes
   notify: Restart NGINX
 
@@ -14,6 +15,9 @@
   copy:
     src: erezlife.conf
     dest: /etc/nginx/default.d/
+    owner: root
+    group: root
+    mode: 0644
   become: yes
   notify: Restart NGINX
 
