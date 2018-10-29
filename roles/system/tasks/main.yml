@@ -67,3 +67,10 @@
 - name: Configure desktop
   include_role:
     name: desktop
+
+- name: Install additional packages
+  dnf:
+    name:
+      - latexmk
+      - texlive-scheme-full
+  become: yes
