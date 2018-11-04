@@ -4,6 +4,7 @@ name = Jon Dufresne
 
 [core]
 editor = emacsclient -c
+excludesfile = ~/.gitignore
 
 [alias]
 br = branch

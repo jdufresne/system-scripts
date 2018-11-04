@@ -9,4 +9,5 @@
     dest: "~/.{{ item }}"
   with_items:
     - gitconfig
+    - gitignore
     - hgrc
