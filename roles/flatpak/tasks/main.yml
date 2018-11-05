@@ -1,3 +1,7 @@
+# TODO: Use flatpak_remote
+# https://docs.ansible.com/ansible/latest/modules/flatpak_remote_module.html
+#
+# Blocked by https://github.com/ansible/ansible/issues/46994
 - name: Add Flathub repository
   command: flatpak remote-add --user flathub https://flathub.org/repo/flathub.flatpakrepo
   args:
