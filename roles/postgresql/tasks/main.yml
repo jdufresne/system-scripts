@@ -5,7 +5,9 @@
       - postgresql-contrib
       - postgresql-devel
       - postgresql-server
+      # TODO: Remove python2-psycopg2 when Python 2 support is dropped.
       - python2-psycopg2  # For postgresql_user
+      - python3-psycopg2  # For postgresql_user
   become: yes
 
 - name: Initialize PostgreSQL

@@ -1,7 +1,10 @@
 - name: Install Emacs
   dnf:
-    name: emacs
+    name:
+      - emacs
+      - levien-inconsolata-fonts
   become: yes
+  notify: Restart Emacs daemon
 
 - name: Emacs configuration
   git:

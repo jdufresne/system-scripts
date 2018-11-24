@@ -7,7 +7,7 @@
   copy:
     dest: /etc/sudoers.d
     src: rabbitmq
-    user: root
+    owner: root
     group: root
     mode: 0440
   become: yes

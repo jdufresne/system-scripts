@@ -1,6 +1,9 @@
 - name: Install psutil
   dnf:
-    name: python2-psutil  # For dconf
+    name:
+      # TODO: Remove python2-psutil when Python 2 support is dropped.
+      - python2-psutil  # For dconf
+      - python3-psutil  # For dconf
   become: yes
 
 - name: Enable Night Light

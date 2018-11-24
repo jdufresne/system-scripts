@@ -1,16 +1,20 @@
-# TODO: Use flatpak_remote
+# TODO: Use flatpak_remote module
 # https://docs.ansible.com/ansible/latest/modules/flatpak_remote_module.html
 #
-# Blocked by https://github.com/ansible/ansible/issues/46994
+# Blocked by Ansible 2.8
 - name: Add Flathub repository
   command: flatpak remote-add --user flathub https://flathub.org/repo/flathub.flatpakrepo
   args:
     creates: ~/.local/share/flatpak/repo/refs/remotes/flathub
 
+# TODO: Use flatpak module
+# https://docs.ansible.com/ansible/latest/modules/flatpak_module.html
+#
+# Blocked by Ansible 2.8
 - name: Install flatpak applications
-  flatpak:
-    name: "{{ item }}"
-    method: user
+  command: flatpak install -y --user flathub "{{ item }}"
+  args:
+    creates: "~/.local/share/flatpak/app/{{ item }}"
   with_items:
     - com.skype.Client
     - com.slack.Slack

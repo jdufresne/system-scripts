@@ -1,6 +1,12 @@
+- name: Install meld
+  dnf:
+    name: meld
+  become: yes
+
 - name: Install Mercurial Evolve Extension
   pip:
     name: hg-evolve
+    executable: pip2
     extra_args: --user
 
 - name: Copy dot files
