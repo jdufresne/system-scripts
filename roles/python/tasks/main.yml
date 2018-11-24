@@ -1,4 +1,11 @@
 - name: Install Python
   dnf:
-    name: python3-flake8
+    name:
+      - python2
+      - python26
+      - python3
+      - python34
+      - python35
+      - python36
+      - python3-flake8
   become: yes
