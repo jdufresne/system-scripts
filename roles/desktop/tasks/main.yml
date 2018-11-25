@@ -8,7 +8,12 @@
       - python3-psutil  # For dconf
   become: yes
 
-- name: Enable Night Light
+- name: Tweak GNOME configuration
   dconf:
-    key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
-    value: "true"
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_items:
+    - key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
+      value: "true"
+    - key: /org/gnome/desktop/peripherals/touchpad/click-method
+      value: "'areas'"
