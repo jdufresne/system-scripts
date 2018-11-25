@@ -52,7 +52,6 @@
     mode: 0600
   with_items:
     - nondurable.conf
-    - logging.conf
   become: yes
   notify: Restart PostgreSQL
 
