@@ -1,3 +1,28 @@
+- name: Install RPM Fusion
+  dnf:
+    name:
+      - https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-29.noarch.rpm
+      - https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-29.noarch.rpm
+  become: yes
+
+- name: Install additional packages
+  dnf:
+    name:
+      - "@multimedia"
+      - "@sound-and-video"
+      - gstreamer-ffmpeg
+      - gstreamer-plugins-bad
+      - gstreamer-plugins-bad-free
+      - gstreamer-plugins-bad-free-extras
+      - gstreamer-plugins-bad-nonfree
+      - gstreamer-plugins-good
+      - gstreamer-plugins-good-extras
+      - gstreamer-plugins-ugly
+      - gstreamer1-plugins-bad-free-extras
+      - gstreamer1-plugins-bad-nonfree
+      - gstreamer1-plugins-good-extras
+  become: yes
+
 - name: Install libselinux-python
   dnf:
     name: libselinux-python
