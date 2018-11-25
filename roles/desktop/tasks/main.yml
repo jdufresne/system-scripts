@@ -1,6 +1,7 @@
 - name: Install additional packages
   dnf:
     name:
+      - dconf-editor
       - gitk
       # TODO: Remove python2-psutil when Python 2 support is dropped.
       - python2-psutil  # For dconf
