@@ -18,9 +18,11 @@
       - gstreamer-plugins-good
       - gstreamer-plugins-good-extras
       - gstreamer-plugins-ugly
+      - gstreamer1-libav
       - gstreamer1-plugins-bad-free-extras
       - gstreamer1-plugins-bad-nonfree
       - gstreamer1-plugins-good-extras
+      - x264
   become: yes
 
 - name: Install libselinux-python
