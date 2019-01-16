@@ -2,9 +2,15 @@
   dnf:
     name:
       - composer
+      - php-cli
+      - php-gd
+      - php-intl
+      - php-mbstring
       - php-pecl-amqp
       - php-pecl-oauth
       - php-pecl-redis
       - php-pecl-xdebug
       - php-pgsql
+      - php-soap
+      - php-xml
   become: yes
