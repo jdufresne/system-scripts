@@ -10,6 +10,7 @@
     name:
       - "@multimedia"
       - "@sound-and-video"
+      - graphviz
       - gstreamer-ffmpeg
       - gstreamer-plugins-bad
       - gstreamer-plugins-bad-free
@@ -22,6 +23,7 @@
       - gstreamer1-plugins-bad-free-extras
       - gstreamer1-plugins-bad-nonfree
       - gstreamer1-plugins-good-extras
+      - jq
       - x264
   become: yes
 
