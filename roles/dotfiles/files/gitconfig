@@ -13,6 +13,7 @@ ci = commit
 st = status
 pushf = push --force-with-lease
 meld = difftool --tool=meld --dir-diff
+wip = commit --all --no-verify -m WIP
 
 [commit]
 verbose = true
