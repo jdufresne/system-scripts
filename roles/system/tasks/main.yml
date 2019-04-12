@@ -37,6 +37,14 @@
     name: ansible-lint
   become: yes
 
+- name: Configure DNF
+  ini_file:
+    path: /etc/dnf/dnf.conf
+    section: main
+    option: max_parallel_downloads
+    value: 10
+  become: yes
+
 - name: Install DNF plugins
   dnf:
     name: dnf-automatic
