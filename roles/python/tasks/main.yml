@@ -1,6 +1,8 @@
 - name: Install Python
   dnf:
     name:
+      - pypy
+      - pypy3
       - python2
       - python26
       - python3
