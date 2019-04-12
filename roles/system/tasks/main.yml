@@ -41,9 +41,14 @@
   ini_file:
     path: /etc/dnf/dnf.conf
     section: main
-    option: max_parallel_downloads
-    value: 10
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
   become: yes
+  with_items:
+    - option: fastestmirror
+      value: True
+    - option: max_parallel_downloads
+      value: 10
 
 - name: Install DNF plugins
   dnf:
