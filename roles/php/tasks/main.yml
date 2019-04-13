@@ -3,6 +3,7 @@
     name:
       - composer
       - php-cli
+      - php-cs-fixer
       - php-gd
       - php-intl
       - php-mbstring
