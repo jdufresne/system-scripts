@@ -18,7 +18,18 @@
     - utf8.cnf
     - nondurable.cnf
   become: yes
-  notify: Restart MariaDB
+
+- name: Start MariaDB server
+  systemd:
+    name: mariadb
+    state: started
+  become: yes
 
 - name:
   shell: mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
+
+- name: Stop MariaDB server
+  systemd:
+    name: mariadb
+    state: stopped
+  become: yes
