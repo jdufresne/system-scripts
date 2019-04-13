@@ -21,6 +21,12 @@
   become: yes
   notify: Restart NGINX
 
+- name: Allow network connections to proxy servers
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+
 - name: Enable NGINX
   systemd:
     name: nginx
