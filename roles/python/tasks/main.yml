@@ -10,7 +10,6 @@
       - python35
       - python36
       - python37
-      - python2-flake8
       - python3-flake8
       - tox
   become: yes
