@@ -1,3 +1,12 @@
+# Editor files
 *~
-__pycache__/
+
+# JavaScript files
 node_modules/
+
+# Python files
+*.py[co]
+__pycache__/
+
+# Test files
+.tox/
