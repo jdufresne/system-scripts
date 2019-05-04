@@ -62,57 +62,23 @@
     state: started
   become: yes
 
-- name: Install Docker
+- name: Install additional roles
   include_role:
-    name: docker
-
-- name: Install dot files
-  include_role:
-    name: dotfiles
-
-- name: Install and configure Emacs
-  include_role:
-    name: emacs
-
-- name: Install flatpak applications
-  include_role:
-    name: flatpak
-
-- name: Install and configure NGINX
-  include_role:
-    name: nginx
-
-- name: Install and configure Node.js
-  include_role:
-    name: nodejs
-
-- name: Install PHP
-  include_role:
-    name: php
-
-- name: Install and configure PostgreSQL
-  include_role:
-    name: postgresql
-
-- name: Install and configure MariaDB
-  include_role:
-    name: mariadb
-
-- name: Install Python
-  include_role:
-    name: python
-
-- name: Install and configure RabbitMQ
-  include_role:
-    name: rabbitmq
-
-- name: Install and configure Redis
-  include_role:
-    name: redis
-
-- name: Configure desktop
-  include_role:
-    name: desktop
+    name: "{{ item }}"
+  with_items:
+    - desktop
+    - docker
+    - dotfiles
+    - emacs
+    - flatpak
+    - mariadb
+    - nginx
+    - nodejs
+    - php
+    - postgresql
+    - python
+    - rabbitmq
+    - redis
 
 - name: Install additional packages
   dnf:
