@@ -62,6 +62,10 @@
     state: started
   become: yes
 
+- name: Install Docker
+  include_role:
+    name: docker
+
 - name: Install dot files
   include_role:
     name: dotfiles

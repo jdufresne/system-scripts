@@ -1,0 +1,24 @@
+- name: Install Docker
+  dnf:
+    name: docker
+  become: yes
+
+- name: Add Docker group
+  group:
+    name: docker
+  become: yes
+  notify: Restart Docker
+
+- name: Add user to Docker group
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+  become: yes
+
+- name: Enable Docker daemon
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+  become: yes
