@@ -24,6 +24,7 @@
       - gstreamer1-plugins-bad-nonfree
       - gstreamer1-plugins-good-extras
       - jq
+      - rpmconf
       - x264
   become: yes
 
