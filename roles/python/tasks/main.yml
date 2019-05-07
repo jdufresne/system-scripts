@@ -10,6 +10,9 @@
       - python35
       - python36
       - python37
+      - python3-black
       - python3-flake8
-      - tox
+      - python3-isort
+      - python3-tox
+      - twine
   become: yes
