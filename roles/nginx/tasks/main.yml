@@ -26,6 +26,7 @@
     name: httpd_can_network_connect
     state: yes
     persistent: yes
+  become: yes
 
 - name: Enable NGINX
   systemd:
