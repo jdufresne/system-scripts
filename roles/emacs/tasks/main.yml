@@ -21,6 +21,6 @@
 - name: Enable Emacs daemon
   systemd:
     name: emacs
-    user: yes
+    scope: user
     enabled: yes
     state: started

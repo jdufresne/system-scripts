@@ -65,7 +65,7 @@
 
 - name: Install additional roles
   include_role:
-    name: "{{ item }}"
+    name: "{{ role }}"
   with_items:
     - desktop
     - docker
@@ -80,6 +80,8 @@
     - python
     - rabbitmq
     - redis
+  loop_control:
+    loop_var: role
 
 - name: Install additional packages
   dnf:
