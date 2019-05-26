@@ -3,8 +3,6 @@
     name:
       - dconf-editor
       - gimp
-      # TODO: Remove python2-psutil when Python 2 support is dropped.
-      - python2-psutil  # For dconf
       - python3-psutil  # For dconf
   become: yes
 
