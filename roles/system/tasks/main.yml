@@ -78,7 +78,6 @@
     - php
     - postgresql
     - python
-    - rabbitmq
     - redis
   loop_control:
     loop_var: role

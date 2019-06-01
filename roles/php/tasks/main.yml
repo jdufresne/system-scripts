@@ -3,12 +3,9 @@
     name:
       - composer
       - php-cli
-      - php-cs-fixer
       - php-gd
       - php-intl
       - php-mbstring
-      - php-pecl-amqp
-      - php-pecl-oauth
       - php-pecl-redis
       - php-pecl-xdebug
       - php-pgsql
