@@ -6,6 +6,7 @@
       - php-gd
       - php-intl
       - php-mbstring
+      - php-pecl-oauth
       - php-pecl-redis
       - php-pgsql
       - php-soap
