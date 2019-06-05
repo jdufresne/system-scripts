@@ -1,3 +1,7 @@
+- name: Set time zone
+  timezone:
+    name: America/Vancouver
+
 - name: Install RPM Fusion
   dnf:
     name:
