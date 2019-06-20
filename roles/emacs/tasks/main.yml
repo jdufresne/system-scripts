@@ -3,6 +3,7 @@
     name:
       - emacs
       - levien-inconsolata-fonts
+      - ripgrep
   become: yes
   notify: Restart Emacs daemon
 
