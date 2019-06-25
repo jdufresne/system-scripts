@@ -13,7 +13,8 @@ ci = commit
 st = status
 pushf = push --force-with-lease
 meld = difftool --tool=meld --dir-diff
-wip = commit --all --no-verify -m WIP
+pr = "!f() { git fetch ${2:-$(git remote | grep '^upstream$' || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
 
 [commit]
 verbose = true
