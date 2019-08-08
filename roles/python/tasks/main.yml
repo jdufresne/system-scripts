@@ -4,15 +4,16 @@
       - pypy
       - pypy3
       - python2
+      - python2-pygments
       - python26
       - python3
-      - python34
-      - python35
-      - python36
-      - python37
       - python3-black
       - python3-flake8
       - python3-isort
       - python3-tox
+      - python34
+      - python35
+      - python36
+      - python37
       - twine
   become: yes
