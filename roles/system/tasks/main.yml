@@ -51,9 +51,9 @@
   become: yes
   with_items:
     - option: fastestmirror
-      value: '1'
+      value: 1
     - option: max_parallel_downloads
-      value: '10'
+      value: 10
 
 - name: Install DNF plugins
   dnf:
