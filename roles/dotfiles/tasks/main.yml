@@ -23,5 +23,5 @@
 - name: Custom environment variables
   lineinfile:
     path: ~/.bash_profile
-    line: RIPGREP_CONFIG_PATH=${HOME}/.ripgreprc
-    regexp: ^RIPGREP_CONFIG_PATH=
+    line: "export RIPGREP_CONFIG_PATH={{ ansible_env.HOME }}/.ripgreprc"
+    regexp: \bRIPGREP_CONFIG_PATH=
