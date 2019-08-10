@@ -18,7 +18,9 @@
   template:
     dest: ~/.config/systemd/user/emacs.service.d/
     src: override.conf
-  notify: Restart Emacs daemon
+  notify:
+    - Reload systemd
+    - Restart Emacs daemon
 
 - name: Install Emacs client desktop file
   copy:
