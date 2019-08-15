@@ -2,6 +2,7 @@
   dnf:
     name:
       - dconf-editor
+      - deluge-gtk
       - gimp
       - python3-psutil  # For dconf
   become: yes
