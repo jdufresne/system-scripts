@@ -6,7 +6,6 @@ node_modules/
 
 # Python files
 *.py[co]
-__pycache__/
-
-# Test files
+.mypy_cache/
 .tox/
+__pycache__/
