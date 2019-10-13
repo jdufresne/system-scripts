@@ -2,14 +2,19 @@
 email = jon.dufresne@gmail.com
 name = Jon Dufresne
 
+[color]
+ui = auto
+
 [core]
 editor = emacsclient -c
 excludesfile = ~/.gitignore
 
 [alias]
 br = branch
-co = checkout
 ci = commit
+co = checkout
+cp = cherry-pick
+rb = rebase
 st = status
 pushf = push --force-with-lease
 meld = difftool --tool=meld --dir-diff
