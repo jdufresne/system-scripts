@@ -6,6 +6,7 @@
       - python2
       - python2-pygments
       - python26
+      - python27
       - python3
       - python3-black
       - python3-flake8
@@ -15,5 +16,6 @@
       - python35
       - python36
       - python37
+      - python38
       - twine
   become: yes
