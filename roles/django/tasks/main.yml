@@ -1,0 +1,7 @@
+- name: Install Django dependencies
+  dnf:
+    name:
+      - libmemcached
+      - libmemcached-devel
+      - libmemcached-libs
+  become: yes

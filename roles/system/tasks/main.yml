@@ -73,6 +73,7 @@
     name: "{{ role }}"
   with_items:
     - desktop
+    - django
     - docker
     - dotfiles
     - emacs
