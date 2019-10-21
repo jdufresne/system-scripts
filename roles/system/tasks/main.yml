@@ -18,24 +18,14 @@
       - graphviz
       - gstreamer-ffmpeg
       - gstreamer-plugins-bad
-      - gstreamer-plugins-bad-free
-      - gstreamer-plugins-bad-free-extras
       - gstreamer-plugins-bad-nonfree
-      - gstreamer-plugins-good
-      - gstreamer-plugins-good-extras
       - gstreamer-plugins-ugly
       - gstreamer1-libav
       - gstreamer1-plugins-bad-free-extras
-      - gstreamer1-plugins-bad-nonfree
       - gstreamer1-plugins-good-extras
       - jq
       - rpmconf
       - x264
-  become: yes
-
-- name: Install libselinux-python
-  dnf:
-    name: libselinux-python
   become: yes
 
 - name: Install ansible-lint

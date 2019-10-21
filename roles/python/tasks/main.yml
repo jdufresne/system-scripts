@@ -4,7 +4,6 @@
       - pypy
       - pypy3
       - python2
-      - python2-pygments
       - python26
       - python27
       - python3
