@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+set -u
+
+root=$(git rev-parse --show-toplevel)
+proj=$(basename ${root})
+rm -rf ~/.venv/${proj}
+python3.8 -m venv ~/.venv/${proj}
+echo . ~/.venv/${proj}/bin/activate
