@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+set -u
+
+root=$(git rev-parse --show-toplevel)
+proj=$(basename ${root})
+
+pushd ${root}/tests
+PYTHONPATH=${root} ~/.venv/${proj}/bin/python -B -b -Wa runtests.py --noinput "$@"
+popd
