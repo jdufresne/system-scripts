@@ -1,7 +1,17 @@
 - name: Install Django dependencies
   dnf:
     name:
-      - libmemcached
+      # Pillow
+      - freetype-devel
+      - fribidi-devel
+      - harfbuzz-devel
+      - lcms2-devel
+      - libjpeg-devel
+      - libraqm-devel
+      - libtiff-devel
+      - libwebp-devel
+      - openjpeg2-devel
+      - zlib-devel
+      # memcached
       - libmemcached-devel
-      - libmemcached-libs
   become: yes
