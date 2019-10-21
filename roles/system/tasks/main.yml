@@ -15,6 +15,7 @@
       - "@multimedia"
       - "@sound-and-video"
       - ccache
+      - gitk
       - graphviz
       - gstreamer-ffmpeg
       - gstreamer-plugins-bad
