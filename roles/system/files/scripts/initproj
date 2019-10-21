@@ -3,8 +3,13 @@
 set -e
 set -u
 
+if [[ ! -v PYTHON ]]; then
+    PYTHON=python3.8
+fi
+
 root=$(git rev-parse --show-toplevel)
 proj=$(basename ${root})
+
 rm -rf ~/.venv/${proj}
-python3.8 -m venv ~/.venv/${proj}
+${PYTHON} -m venv ~/.venv/${proj}
 echo . ~/.venv/${proj}/bin/activate
