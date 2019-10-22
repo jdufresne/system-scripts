@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+set -u
+
+root=$(git rev-parse --show-toplevel)
+proj=$(basename ${root})
+
+cat << EOF > ${proj}/tests/test_mysql.py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_default',
+        'USER': 'root',
+    },
+    'other': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_other',
+        'USER': 'root',
+    }
+}
+
+SECRET_KEY = "django_tests_secret_key"
+
+# Use a fast hasher to speed up tests.
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+]
+EOF
+
+pushd ${root}/tests
+PYTHONPATH=${root} ~/.venv/${proj}/bin/python -B -b -Wa runtests.py --noinput --settings test_mysql "$@"
+popd
