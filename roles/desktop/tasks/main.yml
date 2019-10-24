@@ -15,8 +15,8 @@
       - org.gnome.Terminal.desktop
       - emacsclient.desktop
       - mozilla-thunderbird.desktop
-      - rhythmbox.desktop
       - org.gnome.Nautilus.desktop
+      - rhythmbox.desktop
       - virtualbox.desktop
       - com.slack.Slack.desktop
 
