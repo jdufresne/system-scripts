@@ -7,6 +7,19 @@
       - python3-psutil  # For dconf
   become: yes
 
+- name: Configure GNOME Dash favorite apps
+  dconf:
+    key: /org/gnome/shell/favorite-apps
+    value:
+      - firefox.desktop
+      - org.gnome.Terminal.desktop
+      - emacsclient.desktop
+      - mozilla-thunderbird.desktop
+      - rhythmbox.desktop
+      - org.gnome.Nautilus.desktop
+      - virtualbox.desktop
+      - com.slack.Slack.desktop
+
 - name: Tweak GNOME configuration
   dconf:
     key: "{{ item.key }}"
