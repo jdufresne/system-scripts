@@ -6,7 +6,7 @@ set -u
 root=$(git rev-parse --show-toplevel)
 proj=$(basename ${root})
 
-cat << EOF > ${proj}/tests/test_postgresql.py
+cat << EOF > ${root}/tests/test_postgresql.py
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
