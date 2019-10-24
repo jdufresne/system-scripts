@@ -26,6 +26,7 @@
       - gstreamer1-plugins-good-extras
       - jq
       - rpmconf
+      - VirtualBox
       - x264
   become: yes
 
