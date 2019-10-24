@@ -10,15 +10,10 @@
 - name: Configure GNOME Dash favorite apps
   dconf:
     key: /org/gnome/shell/favorite-apps
-    value:
-      - firefox.desktop
-      - org.gnome.Terminal.desktop
-      - emacsclient.desktop
-      - mozilla-thunderbird.desktop
-      - org.gnome.Nautilus.desktop
-      - rhythmbox.desktop
-      - virtualbox.desktop
-      - com.slack.Slack.desktop
+    value: >-
+      ['firefox.desktop', 'org.gnome.Terminal.desktop', 'emacsclient.desktop',
+      'mozilla-thunderbird.desktop', 'org.gnome.Nautilus.desktop',
+      'rhythmbox.desktop', 'virtualbox.desktop', 'com.slack.Slack.desktop']
 
 - name: Tweak GNOME configuration
   dconf:
