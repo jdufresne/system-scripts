@@ -1,5 +1,0 @@
-- name: Stop Docker
-  systemd:
-    name: docker
-    state: stopped
-  become: yes

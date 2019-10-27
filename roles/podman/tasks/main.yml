@@ -1,0 +1,6 @@
+- name: Install podman
+  dnf:
+    name:
+      - podman
+      - podman-docker
+  become: yes

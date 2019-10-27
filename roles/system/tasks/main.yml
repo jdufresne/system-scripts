@@ -69,7 +69,6 @@
   with_items:
     - desktop
     - django
-    - docker
     - dotfiles
     - emacs
     - flatpak
@@ -77,6 +76,7 @@
     - nginx
     - nodejs
     - php
+    - podman
     - postgresql
     - python
     - redis
