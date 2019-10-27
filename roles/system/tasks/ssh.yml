@@ -1,0 +1,28 @@
+- name: Create SSH conf.d directory
+  file:
+    path: ~/.ssh/conf.d
+    state: directory
+    mode: 0700
+
+- name: Write SSH config
+  copy:
+    src: ssh/
+    dest: ~/.ssh/
+    mode: 0600
+
+- name: Gather hosts keys
+  command: "ssh-keyscan {{ item }}"
+  with_items:
+    - 192.168.0.10
+    - 192.168.0.20
+    - 192.168.0.30
+    - github.com
+  register: host_keys
+  ignore_errors: yes
+
+- name: Add host keys to known_hosts
+  known_hosts:
+    name: "{{ item.item }}"
+    key: "{{ item.stdout }}"
+  with_items: "{{ host_keys.results }}"
+  when: not item.failed

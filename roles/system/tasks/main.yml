@@ -2,6 +2,8 @@
   timezone:
     name: America/Vancouver
 
+- import_tasks: ssh.yml
+
 - name: Install RPM Fusion
   dnf:
     name:
