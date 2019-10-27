@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+
+import argparse
+import pathlib
+import subprocess
+import urllib
+
+import requests
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--user", required=True)
+    parser.add_argument("dest", type=pathlib.Path)
+    return parser.parse_args()
+
+
+def get_github(path, *, params=None):
+    BASE = "https://api.github.com"
+    url = urllib.parse.urljoin(BASE, path)
+    headers = {"Accept": "application/vnd.github.v3+json"}
+    return requests.get(url, headers=headers, params=params)
+
+
+def main():
+    args = parse_args()
+
+    page = 1
+    while True:
+        params = [("type", "owner"), ("page", page)]
+        response = get_github(f"/users/{args.user}/repos", params=params)
+        repos = response.json()
+        if not repos:
+            break
+
+        for repo_info in repos:
+            print(repo_info["full_name"])
+            repo_response = get_github(repo_info["url"])
+            repo_info = repo_response.json()
+
+            repo_path = args.dest / repo_info["name"]
+            if not repo_path.is_dir():
+                cmd = ["git", "-C", args.dest, "clone", repo_info["ssh_url"]]
+                subprocess.run(cmd, check=True)
+
+            if repo_info["fork"]:
+                cmd = ["git", "-C", repo_path, "remote", "get-url", "upstream"]
+                result = subprocess.run(
+                    cmd, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT
+                )
+                if result.returncode:
+                    parent_ssh_url = repo_info["parent"]["ssh_url"]
+                    cmd = [
+                        "git",
+                        "-C",
+                        repo_path,
+                        "remote",
+                        "add",
+                        "upstream",
+                        parent_ssh_url,
+                    ]
+                    subprocess.run(cmd, check=True)
+
+            cmd = ["git", "-C", repo_path, "fetch", "--all", "--prune"]
+            subprocess.run(cmd, check=True)
+
+            if repo_info["fork"]:
+                cmd = ["git", "-C", repo_path, "push", "origin", "--tags"]
+                subprocess.run(cmd, check=True)
+
+            cmd = ["git", "-C", repo_path, "diff-index", "--quiet", "HEAD"]
+            subprocess.run(cmd, check=True)
+
+            cmd = ["git", "-C", repo_path, "checkout", repo_info["default_branch"]]
+            subprocess.run(cmd, check=True)
+
+            if repo_info["fork"]:
+                cmd = [
+                    "git",
+                    "-C",
+                    repo_path,
+                    "pull",
+                    "upstream",
+                    repo_info["default_branch"],
+                    "--ff-only",
+                ]
+                subprocess.run(cmd, check=True)
+
+                cmd = [
+                    "git",
+                    "-C",
+                    repo_path,
+                    "push",
+                    "origin",
+                    repo_info["default_branch"],
+                ]
+                subprocess.run(cmd, check=True)
+            else:
+                cmd = [
+                    "git",
+                    "-C",
+                    repo_path,
+                    "pull",
+                    "origin",
+                    repo_info["default_branch"],
+                    "--ff-only",
+                ]
+                subprocess.run(cmd, check=True)
+
+            cmd = ["git", "-C", repo_path, "clean", "-dxff"]
+            subprocess.run(cmd, check=True)
+
+            print()
+        page += 1
+
+
+if __name__ == "__main__":
+    main()
