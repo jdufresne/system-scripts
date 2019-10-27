@@ -16,6 +16,7 @@
     name:
       - "@multimedia"
       - "@sound-and-video"
+      - awscli
       - ccache
       - gitk
       - graphviz
