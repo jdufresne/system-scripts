@@ -28,6 +28,7 @@
       - gstreamer1-plugins-ugly
       - gstreamer1-plugins-ugly-free
       - jq
+      - openldap-devel
       - rpmconf
       - VirtualBox
       - x264
@@ -82,13 +83,6 @@
     - redis
   loop_control:
     loop_var: role
-
-- name: Install additional packages
-  dnf:
-    name:
-      - latexmk
-      - texlive-scheme-full
-  become: yes
 
 - name: Install scripts
   copy:
