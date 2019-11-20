@@ -4,13 +4,6 @@
 
 - import_tasks: ssh.yml
 
-- name: Install RPM Fusion
-  dnf:
-    name:
-      - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
-      - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
-  become: yes
-
 - name: Install additional packages
   dnf:
     name:
@@ -37,31 +30,6 @@
 - name: Install ansible-lint
   dnf:
     name: ansible-lint
-  become: yes
-
-- name: Configure DNF
-  ini_file:
-    path: /etc/dnf/dnf.conf
-    section: main
-    option: "{{ item.option }}"
-    value: "{{ item.value }}"
-  become: yes
-  with_items:
-    - option: fastestmirror
-      value: 1
-    - option: max_parallel_downloads
-      value: 10
-
-- name: Install DNF plugins
-  dnf:
-    name: dnf-automatic
-  become: yes
-
-- name: Enable DNF automatic timer
-  systemd:
-    name: dnf-automatic-install.timer
-    enabled: yes
-    state: started
   become: yes
 
 - name: Install scripts

@@ -2,6 +2,7 @@
   roles:
     - desktop
     - django
+    - dnf
     - dotfiles
     - emacs
     - flatpak
