@@ -1,11 +1,14 @@
 # Editor files
 *~
 
-# JavaScript files
+# JavaScript
 node_modules/
 
-# Python files
+# Python
 *.py[co]
 .mypy_cache/
 .tox/
 __pycache__/
+
+# Vagrant
+.vagrant/
