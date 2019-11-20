@@ -64,26 +64,6 @@
     state: started
   become: yes
 
-- name: Install additional roles
-  include_role:
-    name: "{{ role }}"
-  with_items:
-    - desktop
-    - django
-    - dotfiles
-    - emacs
-    - flatpak
-    - mariadb
-    - nginx
-    - nodejs
-    - php
-    - podman
-    - postgresql
-    - python
-    - redis
-  loop_control:
-    loop_var: role
-
 - name: Install scripts
   copy:
     src: scripts/

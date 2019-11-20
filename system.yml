@@ -1,3 +1,16 @@
 - hosts: localhost
   roles:
+    - desktop
+    - django
+    - dotfiles
+    - emacs
+    - flatpak
+    - mariadb
+    - nginx
+    - nodejs
+    - php
+    - podman
+    - postgresql
+    - python
+    - redis
     - system
