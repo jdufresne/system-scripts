@@ -5,6 +5,7 @@
       - deluge-gtk
       - gimp
       - python3-psutil  # For dconf
+      - thunderbird
   become: yes
 
 - name: Configure GNOME Dash favorite apps
