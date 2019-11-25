@@ -23,6 +23,7 @@
       - jq
       - openldap-devel
       - rpmconf
+      - vagrant
       - VirtualBox
       - x264
   become: yes
