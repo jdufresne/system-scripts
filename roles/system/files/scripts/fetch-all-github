@@ -10,32 +10,40 @@ import requests
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--user", required=True)
+    parser.add_argument("--token", required=True)
     parser.add_argument("dest", type=pathlib.Path)
     return parser.parse_args()
 
 
-def get_github(path, *, params=None):
+def get_github(path, *, token, params=None):
     BASE = "https://api.github.com"
     url = urllib.parse.urljoin(BASE, path)
-    headers = {"Accept": "application/vnd.github.v3+json"}
-    return requests.get(url, headers=headers, params=params)
+    headers = {
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": f"token {token}",
+    }
+    response = requests.get(url, headers=headers, params=params)
+    response.raise_for_status()
+    return response
 
 
 def main():
     args = parse_args()
 
+    response = get_github(f"/user", token=args.token,)
+    user = response.json()
+
     page = 1
     while True:
         params = [("type", "owner"), ("page", page)]
-        response = get_github(f"/users/{args.user}/repos", params=params)
+        response = get_github(user["repos_url"], token=args.token, params=params)
         repos = response.json()
         if not repos:
             break
 
         for repo_info in repos:
             print(repo_info["full_name"])
-            repo_response = get_github(repo_info["url"])
+            repo_response = get_github(repo_info["url"], token=args.token)
             repo_info = repo_response.json()
 
             repo_path = args.dest / repo_info["name"]
