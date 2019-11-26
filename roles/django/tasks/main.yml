@@ -15,3 +15,15 @@
       # memcached
       - libmemcached-devel
   become: yes
+
+- name: Download geckodriver
+  get_url:
+    url: https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+    dest: ~/.local/bin/
+  register: geckodriver
+
+- name: Extract geckodriver
+  unarchive:
+    src: "{{ geckodriver.dest }}"
+    dest: ~/.local/bin/
+    remote_src: yes
