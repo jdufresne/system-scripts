@@ -21,6 +21,7 @@
       - gstreamer1-plugins-ugly
       - gstreamer1-plugins-ugly-free
       - jq
+      - kernel-devel
       - openldap-devel
       - rpmconf
       - vagrant
