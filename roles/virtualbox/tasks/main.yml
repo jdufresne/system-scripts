@@ -6,7 +6,7 @@
 # TODO: Current version of Vagrant (2.2.5) is incompatible with VirtualBox 6.1.
 # Check if there is new Vagrant release.
 - name: Lock version to VirtualBox 6.0
-  command: dnf versionlock add
+  command: "dnf versionlock add {{ item }}"
   with_items:
     - VirtualBox-0:6.0.*
     - VirtualBox-kmodsrc-0:6.0.*
