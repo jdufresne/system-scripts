@@ -3,6 +3,9 @@
     name:
       - emacs
       - levien-inconsolata-fonts
+      - mozilla-fira-fonts-common
+      - mozilla-fira-mono-fonts
+      - mozilla-fira-sans-fonts
       - ripgrep
   become: yes
   notify: Restart Emacs daemon
