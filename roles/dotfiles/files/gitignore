@@ -5,7 +5,7 @@
 node_modules/
 
 # Python
-*.egginfo/
+*.egg-info/
 *.py[co]
 .mypy_cache/
 .tox/
