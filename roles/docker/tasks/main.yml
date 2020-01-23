@@ -1,0 +1,23 @@
+- name: Add Docker repository
+  command: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  creates: /etc/yum.repos.d/docker-ce.repo
+  become: yes
+
+- name: Install Docker
+  dnf:
+    name:
+      - containerd.io
+      - docker-ce
+      - docker-ce-cli
+  become: yes
+
+- name: Use legacy cgroup hierarch
+  command: grubby --update-kernel=ALL --args=systemd.unified_cgroup_hierarchy=0
+  become: yes
+
+- name: Enable Docker
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+  become: yes

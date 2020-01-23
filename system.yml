@@ -3,6 +3,7 @@
     - desktop
     - django
     - dnf
+    - docker
     - dotfiles
     - emacs
     - flatpak
@@ -10,7 +11,6 @@
     - nginx
     - nodejs
     - php
-    - podman
     - postgresql
     - python
     - redis
