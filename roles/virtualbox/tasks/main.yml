@@ -1,19 +1,6 @@
-- name: Install DNF versionlock plugin
-  dnf:
-    name: python3-dnf-plugin-versionlock
-  become: yes
-
-# TODO: Current version of Vagrant (2.2.5) is incompatible with VirtualBox 6.1.
-# Check if there is new Vagrant release.
-- name: Lock version to VirtualBox 6.0
-  command: "dnf versionlock add {{ item }}"
-  with_items:
-    - VirtualBox-0:6.0.*
-    - VirtualBox-kmodsrc-0:6.0.*
-    - VirtualBox-server-0:6.0.*
-  become: yes
-
 - name: Install VirtualBox
   dnf:
-    name: VirtualBox
+    name:
+      - VirtualBox
+      - https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_x86_64.rpm
   become: yes
