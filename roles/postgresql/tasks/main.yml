@@ -48,7 +48,7 @@
     owner: postgres
     group: postgres
     mode: 0600
-  with_items:
+  loop:
     - nondurable.conf
   become: yes
   notify: Restart PostgreSQL

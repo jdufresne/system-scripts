@@ -20,7 +20,7 @@
   dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
-  with_items:
+  loop:
     - key: /org/gnome/desktop/peripherals/touchpad/click-method
       value: "'areas'"
     - key: /org/gnome/mutter/workspaces-only-on-primary

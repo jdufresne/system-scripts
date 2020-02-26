@@ -9,7 +9,7 @@
   flatpak:
     name: "{{ item }}"
     method: user
-  with_items:
+  loop:
     - com.skype.Client
     - com.slack.Slack
     - us.zoom.Zoom

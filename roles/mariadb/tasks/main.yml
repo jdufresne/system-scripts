@@ -14,7 +14,7 @@
     owner: root
     group: root
     mode: 0644
-  with_items:
+  loop:
     - utf8.cnf
     - nondurable.cnf
   become: yes

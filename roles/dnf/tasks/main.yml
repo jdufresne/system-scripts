@@ -12,7 +12,7 @@
     option: "{{ item.option }}"
     value: "{{ item.value }}"
   become: yes
-  with_items:
+  loop:
     - option: fastestmirror
       value: 1
     - option: max_parallel_downloads
