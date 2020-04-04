@@ -30,11 +30,12 @@ def get_github(path, *, token, params=None):
 def main():
     args = parse_args()
 
-    response = get_github(f"/user", token=args.token,)
+    response = get_github(f"/user", token=args.token)
     user = response.json()
 
-    page = 1
+    page = 0
     while True:
+        page += 1
         params = [("type", "owner"), ("page", page)]
         response = get_github(user["repos_url"], token=args.token, params=params)
         repos = response.json()
@@ -119,7 +120,6 @@ def main():
             subprocess.run(cmd, check=True)
 
             print()
-        page += 1
 
 
 if __name__ == "__main__":
