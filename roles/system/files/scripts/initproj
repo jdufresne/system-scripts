@@ -4,7 +4,7 @@ set -e
 set -u
 
 if [[ ! -v PYTHON ]]; then
-    PYTHON=python3.8
+    PYTHON=python3.9
 fi
 
 root=$(git rev-parse --show-toplevel)
