@@ -36,10 +36,9 @@
 - name: Add include directory to postgresql.conf
   lineinfile:
     path: /var/lib/pgsql/data/postgresql.conf
-    regexp: "^#?include_dir = 'conf.d'(?P<rest>.*)"
-    line: "include_dir = 'conf.d'\\g<rest>"
-    backrefs: yes
+    line: "include_dir = 'conf.d'"
   become: yes
+  notify: Restart PostgreSQL
 
 - name: Copy PostgreSQL configuration
   copy:
