@@ -10,6 +10,6 @@ fi
 root=$(git rev-parse --show-toplevel)
 proj=$(basename ${root})
 
-rm -rf ~/.venv/${proj}
-${PYTHON} -m venv ~/.venv/${proj}
-echo . ~/.venv/${proj}/bin/activate
+rm -rf ~/.virtualenvs/${proj}
+${PYTHON} -m venv ~/.virtualenvs/${proj}
+echo . ~/.virtualenvs/${proj}/bin/activate

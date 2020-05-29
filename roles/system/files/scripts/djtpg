@@ -27,5 +27,5 @@ PASSWORD_HASHERS = [
 EOF
 
 pushd ${root}/tests
-PYTHONPATH=${root} ~/.venv/${proj}/bin/python -B -b -Wa runtests.py --noinput --settings test_postgresql "$@"
+PYTHONPATH=${root} ~/.virtualenvs/${proj}/bin/python -B -b -Wa runtests.py --noinput --settings test_postgresql "$@"
 popd

@@ -7,11 +7,11 @@ root=$(git rev-parse --show-toplevel)
 proj=$(basename ${root})
 
 initproj
-~/.venv/${proj}/bin/pip install \
+~/.virtualenvs/${proj}/bin/pip install \
         -r ${root}/tests/requirements/py3.txt \
         -r ${root}/tests/requirements/postgres.txt \
         -r ${root}/tests/requirements/mysql.txt \
         isort \
         sphinx
 
-echo . ~/.venv/${proj}/bin/activate
+echo . ~/.virtualenvs/${proj}/bin/activate
