@@ -4,7 +4,6 @@ set -e
 set -u
 
 root=$(git rev-parse --show-toplevel)
-proj=$(basename ${root})
 
 cat << EOF > ${root}/tests/test_postgresql.py
 DATABASES = {
@@ -27,5 +26,5 @@ PASSWORD_HASHERS = [
 EOF
 
 pushd ${root}/tests
-PYTHONPATH=${root} ~/.virtualenvs/${proj}/bin/python -B -b -Wa runtests.py --noinput --settings test_postgresql "$@"
+PYTHONPATH=${root} python -b -Wa runtests.py --noinput --settings test_postgresql "$@"
 popd

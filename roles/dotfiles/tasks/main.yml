@@ -30,6 +30,7 @@
     src: "{{ item }}"
     dest: "~/.bashrc.d/{{ item }}"
   loop:
+    - django.sh
     - erezlife.sh
     - project.sh
     - ripgrep.sh
