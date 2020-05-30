@@ -19,3 +19,24 @@
     path: ~/.bash_profile
     line: "export RIPGREP_CONFIG_PATH={{ ansible_env.HOME }}/.ripgreprc"
     regexp: \bRIPGREP_CONFIG_PATH=
+
+- name: Create ~/.bashrc.d directory
+  file:
+    path: ~/.bashrc.d
+    state: directory
+
+- name: Copy bashrc scripts
+  copy:
+    src: "{{ item }}"
+    dest: "~/.bashrc.d/{{ item }}"
+  loop:
+    - erezlife.sh
+    - ripgrep.sh
+
+- name: Add ~/.bashrc.d support
+  blockinfile:
+    path: ~/.bashrc
+    block: |
+      for f in $(compgen -G "${HOME}/.bashrc.d/*.sh"); do
+          . "${f}"
+      done
