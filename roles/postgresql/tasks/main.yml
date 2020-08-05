@@ -14,15 +14,6 @@
     creates: /var/lib/pgsql/data/postgresql.conf
   become: yes
 
-- name: Create PostgreSQL conf.d directory
-  file:
-    path: /var/lib/pgsql/data/conf.d
-    state: directory
-    owner: postgres
-    group: postgres
-    mode: 0700
-  become: yes
-
 - name: Enable PostgreSQL server
   systemd:
     name: postgresql
