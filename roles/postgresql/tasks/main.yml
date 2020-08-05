@@ -53,3 +53,5 @@
   postgresql_user:
     name: "{{ ansible_user }}"
     role_attr_flags: SUPERUSER
+  become: yes
+  become_user: postgres
