@@ -38,6 +38,7 @@
       value: 24h
   become: yes
   become_user: postgres
+  notify: Restart PostgreSQL
 
 - name: Add PostgreSQL user
   postgresql_user:
