@@ -14,16 +14,6 @@
     creates: /var/lib/pgsql/data/postgresql.conf
   become: yes
 
-- name: Copy pg_hba.conf
-  copy:
-    src: pg_hba.conf
-    dest: /var/lib/pgsql/data/pg_hba.conf
-    owner: postgres
-    group: postgres
-    mode: 0600
-  become: yes
-  notify: Restart PostgreSQL
-
 - name: Create PostgreSQL conf.d directory
   file:
     path: /var/lib/pgsql/data/conf.d
