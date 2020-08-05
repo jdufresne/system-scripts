@@ -23,31 +23,30 @@
     mode: 0700
   become: yes
 
-- name: Add include directory to postgresql.conf
-  lineinfile:
-    path: /var/lib/pgsql/data/postgresql.conf
-    line: "include_dir = 'conf.d'"
-  become: yes
-  notify: Restart PostgreSQL
-
-- name: Copy PostgreSQL configuration
-  copy:
-    src: "{{ item }}"
-    dest: /var/lib/pgsql/data/conf.d/
-    owner: postgres
-    group: postgres
-    mode: 0600
-  loop:
-    - nondurable.conf
-  become: yes
-  notify: Restart PostgreSQL
-
 - name: Enable PostgreSQL server
   systemd:
     name: postgresql
     enabled: yes
     state: started
   become: yes
+
+- name: Configure PostgreSQL nondurable
+  postgresql_set:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  loop:
+    - name: fsync
+      value: "off"
+    - name: fsync
+      value: "off"
+    - name: synchronous_commit
+      value: "off"
+    - name: full_page_writes
+      value: "off"
+    - name: checkpoint_timeout
+      value: 24h
+  become: yes
+  become_user: postgres
 
 - name: Add PostgreSQL user
   postgresql_user:
