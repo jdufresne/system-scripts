@@ -3,14 +3,6 @@
     name: nginx
   become: yes
 
-- name: Remove default location
-  replace:
-    path: /etc/nginx/nginx.conf
-    regexp: '^\s*location / {\n\s*}\n$'
-    replace: ''
-  become: yes
-  notify: Restart NGINX
-
 - name: Copy NGINX location configuration
   copy:
     src: erezlife.conf
