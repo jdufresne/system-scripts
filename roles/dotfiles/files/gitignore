@@ -13,3 +13,6 @@ __pycache__/
 
 # Vagrant
 .vagrant/
+
+# Other
+geckodriver.log
