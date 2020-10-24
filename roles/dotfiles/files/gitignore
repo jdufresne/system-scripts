@@ -7,6 +7,7 @@ node_modules/
 # Python
 *.egg-info/
 *.py[co]
+.coverage
 .mypy_cache/
 .tox/
 __pycache__/
