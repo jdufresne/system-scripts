@@ -14,7 +14,7 @@
     value: >-
       ['firefox.desktop', 'org.gnome.Terminal.desktop', 'emacsclient.desktop',
       'mozilla-thunderbird.desktop', 'org.gnome.Nautilus.desktop',
-      'rhythmbox.desktop', 'virtualbox.desktop', 'com.slack.Slack.desktop']
+      'rhythmbox.desktop', 'com.slack.Slack.desktop']
 
 - name: Tweak GNOME configuration
   dconf:

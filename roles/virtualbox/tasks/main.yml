@@ -1,6 +1,0 @@
-- name: Install VirtualBox
-  dnf:
-    name:
-      - VirtualBox
-      - vagrant
-  become: yes
