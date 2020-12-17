@@ -8,9 +8,7 @@
     - emacs
     - flatpak
     - mariadb
-    - nginx
     - nodejs
-    - php
     - postgresql
     - python
     - redis
