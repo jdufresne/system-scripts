@@ -30,7 +30,7 @@ def get_github(path, *, token, params=None):
 def main():
     args = parse_args()
 
-    response = get_github(f"/user", token=args.token)
+    response = get_github("/user", token=args.token)
     user = response.json()
 
     page = 0
