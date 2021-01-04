@@ -22,6 +22,7 @@
 - name: Start MariaDB server
   systemd:
     name: mariadb
+    enabled: yes
     state: started
   become: yes
 
@@ -31,9 +32,3 @@
 
 - name:
   shell: mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
-
-- name: Stop MariaDB server
-  systemd:
-    name: mariadb
-    state: stopped
-  become: yes

@@ -24,6 +24,7 @@
       - kernel-devel
       - openldap-devel
       - rpmconf
+      - sqlite-devel
       - x264
   become: yes
 
