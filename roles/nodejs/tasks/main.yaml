@@ -1,4 +1,6 @@
 - name: Install npm
   dnf:
-    name: npm
+    name:
+      - npm
+      - yarnpkg
   become: yes
