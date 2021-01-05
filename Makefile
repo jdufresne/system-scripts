@@ -1,6 +1,6 @@
 .PHONY: all
 all: /usr/bin/ansible-playbook
-	$< --verbose system.yml
+	$< --verbose system.yaml
 
 
 /usr/bin/ansible-playbook:
@@ -8,4 +8,4 @@ all: /usr/bin/ansible-playbook
 
 
 lint:
-	ansible-lint system.yml
+	ansible-lint system.yaml
