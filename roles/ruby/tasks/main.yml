@@ -1,0 +1,7 @@
+- name: Install Ruby
+  dnf:
+    name:
+      - ruby
+      - ruby-devel
+      - rubygem-rails
+  become: yes
