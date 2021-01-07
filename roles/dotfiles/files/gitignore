@@ -12,6 +12,9 @@ node_modules/
 .tox/
 __pycache__/
 
+# Ruby
+vendor/bundle/
+
 # Vagrant
 .vagrant/
 
