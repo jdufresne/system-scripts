@@ -9,7 +9,6 @@
     name:
       - "@multimedia"
       - "@sound-and-video"
-      - awscli
       - ccache
       - gitk
       - graphviz
@@ -38,3 +37,26 @@
     src: scripts/
     dest: ~/.local/bin/
     mode: 0755
+
+- name: Remove system AWS CLI
+  dnf:
+    name: awscli
+    state: absent
+  become: yes
+
+- name: Download AWS CLI version 2
+  get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: ~/.cache/awscliv2.zip
+
+- name: Unzip AWS CLI version 2
+  unarchive:
+    src: ~/.cache/awscliv2.zip
+    dest: ~/.cache/
+    creates: ~/.cache/aws
+
+- name: Install AWS CLI version 2
+  command:
+    cmd: "~{{ ansible_user_id }}/.cache/aws/install"
+    creates: /usr/local/bin/aws
+  become: yes
