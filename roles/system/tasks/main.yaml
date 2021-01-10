@@ -70,5 +70,6 @@
 
 - name: Install Session Manager plugin
   dnf:
-    name: "{{ session_manager_plugin.destansible_env.HOME }}"
+    name: "{{ session_manager_plugin.dest }}"
+    disable_gpg_check: yes
   become: yes
