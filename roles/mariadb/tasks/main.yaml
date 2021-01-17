@@ -27,9 +27,9 @@
     state: started
   become: yes
 
-- name:
+- name: Remove MariaDB root password
   command: mysqladmin password ''
   become: yes
 
-- name:
+- name: Load MariaDB time zone information
   shell: mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql --database mysql
