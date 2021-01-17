@@ -12,7 +12,6 @@
     name: "{{ item }}"
     method: user
   loop:
-    - com.skype.Client
     - com.slack.Slack
     - org.signal.Signal
     - us.zoom.Zoom
