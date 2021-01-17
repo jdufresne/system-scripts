@@ -15,8 +15,9 @@
     group: root
     mode: 0644
   loop:
-    - utf8.cnf
+    - client.cnf
     - nondurable.cnf
+    - utf8.cnf
   become: yes
 
 - name: Start MariaDB server
@@ -27,8 +28,8 @@
   become: yes
 
 - name:
-  command: mysqladmin -u root password ''
+  command: mysqladmin password ''
   become: yes
 
 - name:
-  shell: mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
+  shell: mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql --database mysql
