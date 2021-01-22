@@ -23,6 +23,9 @@ pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read
 sync = "!f() { branch=$(git symbolic-ref --short HEAD) && git fetch --all --prune && git pull upstream ${branch} && git push origin ${branch}; }; f"
 need-merge = !"git log ${1} ^HEAD"
 
+[checkout]
+defaultRemote = origin
+
 [commit]
 verbose = true
 
