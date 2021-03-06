@@ -20,9 +20,16 @@
       - chromium
   become: yes
 
+- name: Get geckodriver release information
+  uri:
+    url: https://api.github.com/repos/mozilla/geckodriver/releases/latest
+    headers:
+      Accept: application/vnd.github.v3+json
+  register: geckodriver_release
+
 - name: Download geckodriver
   get_url:
-    url: "https://github.com/mozilla/geckodriver/releases/download/{{ geckodriver_version }}/geckodriver-{{ geckodriver_version }}-linux64.tar.gz"
+    url: "{{ geckodriver_release.json | json_query('assets[*].browser_download_url') | select('match', '^.*-linux64\\.tar\\.gz$') | first }}"
     dest: ~/.local/bin/
   register: geckodriver
 
