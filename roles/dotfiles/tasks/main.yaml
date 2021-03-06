@@ -3,6 +3,12 @@
     name: meld
   become: yes
 
+- name: Install git-sync scripts
+  copy:
+    src: git-sync
+    dest: ~/.local/bin/
+    mode: 0755
+
 - name: Copy dot files
   copy:
     src: "{{ item }}"
