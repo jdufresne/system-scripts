@@ -53,7 +53,7 @@ def main():
             repo_path.parent.mkdir(exist_ok=True)
 
             if not repo_path.is_dir():
-                cmd = ["git", "-C", args.dest, "clone", repo_info["ssh_url"]]
+                cmd = ["git", "-C", repo_path.parent, "clone", repo_info["ssh_url"]]
                 subprocess.run(cmd, check=True)
 
             if repo_info["fork"]:
