@@ -4,10 +4,12 @@ import argparse
 import functools
 import pathlib
 import subprocess
-import urllib
 import sys
+import urllib
 
 import requests
+
+PREFERRED_BRANCH = "main"
 
 
 def parse_args():
@@ -99,23 +101,25 @@ def main():
             cmd = ["git", "-C", repo_path, "diff", "--exit-code"]
             subprocess.run(cmd, check=True)
 
+            default_branch = repo_info["default_branch"]
+            expected_default_branch = (
+                repo_info["parent"]["default_branch"]
+                if repo_info["fork"]
+                else PREFERRED_BRANCH
+            )
+            if default_branch != expected_default_branch:
+                github.post(
+                    repo_info["branches_url"].replace(
+                        "{/branch}", f"/{default_branch}/rename"
+                    ),
+                    json={"new_name": expected_default_branch},
+                )
+                default_branch = expected_default_branch
+
             cmd = ["git", "-C", repo_path, "fetch", "--all", "--prune"]
             subprocess.run(cmd, check=True)
 
-            new_default_branch = None
-            if repo_info["fork"]:
-                if repo_info["default_branch"] != repo_info["parent"]["default_branch"]:
-                    new_default_branch = repo_info["parent"]["default_branch"]
-            else:
-                if repo_info["default_branch"] != "main":
-                    new_default_branch = "main"
-            if new_default_branch is not None:
-                github.patch(
-                    repo_info["url"],
-                    json={"default_branch": new_default_branch},
-                )
-
-            cmd = ["git", "-C", repo_path, "checkout", repo_info["default_branch"]]
+            cmd = ["git", "-C", repo_path, "checkout", default_branch]
             subprocess.run(cmd, check=True)
 
             remote = "upstream" if repo_info["fork"] else "origin"
@@ -125,7 +129,7 @@ def main():
                 repo_path,
                 "reset",
                 "--hard",
-                f"{remote}/{repo_info['default_branch']}",
+                f"{remote}/{default_branch}",
             ]
             subprocess.run(cmd, check=True)
 
@@ -137,7 +141,7 @@ def main():
                     "push",
                     "origin",
                     "--tags",
-                    repo_info["default_branch"],
+                    default_branch,
                 ]
                 subprocess.run(cmd, check=True)
 
