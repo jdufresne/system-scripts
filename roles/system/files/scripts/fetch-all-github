@@ -65,7 +65,7 @@ def main():
 
             msg = repo_info["full_name"]
             if repo_info["fork"]:
-                msg = f'{msg} (forked from {repo_info["parent"]["full_name"]})'
+                msg = f"{msg} (forked from {repo_info['parent']['full_name']})"
             print(msg)
 
             if repo_info["fork"]:
@@ -96,45 +96,48 @@ def main():
                     ]
                     subprocess.run(cmd, check=True)
 
+            cmd = ["git", "-C", repo_path, "diff", "--exit-code"]
+            subprocess.run(cmd, check=True)
+
             cmd = ["git", "-C", repo_path, "fetch", "--all", "--prune"]
             subprocess.run(cmd, check=True)
 
+            new_default_branch = None
             if repo_info["fork"]:
-                cmd = ["git", "-C", repo_path, "push", "origin", "--tags"]
-                subprocess.run(cmd, check=True)
-
-            cmd = ["git", "-C", repo_path, "diff-index", "--quiet", "HEAD"]
-            subprocess.run(cmd, check=True)
+                if repo_info["default_branch"] != repo_info["parent"]["default_branch"]:
+                    new_default_branch = repo_info["parent"]["default_branch"]
+            else:
+                if repo_info["default_branch"] != "main":
+                    new_default_branch = "main"
+            if new_default_branch is not None:
+                github.patch(
+                    repo_info["url"],
+                    json={"default_branch": new_default_branch},
+                )
 
             cmd = ["git", "-C", repo_path, "checkout", repo_info["default_branch"]]
             subprocess.run(cmd, check=True)
 
-            if repo_info["fork"]:
-                cmd = ["git", "-C", repo_path, "sync"]
-                subprocess.run(cmd, check=True)
+            remote = "upstream" if repo_info["fork"] else "origin"
+            cmd = [
+                "git",
+                "-C",
+                repo_path,
+                "reset",
+                "--hard",
+                f"{remote}/{repo_info['default_branch']}",
+            ]
+            subprocess.run(cmd, check=True)
 
-                if repo_info["default_branch"] != repo_info["parent"]["default_branch"]:
-                    github.patch(
-                        repo_info["url"],
-                        json={"default_branch": repo_info["parent"]["default_branch"]},
-                    )
-                    cmd = [
-                        "git",
-                        "-C",
-                        repo_path,
-                        "checkout",
-                        repo_info["parent"]["default_branch"],
-                    ]
-                    subprocess.run(cmd, check=True)
-            else:
+            if repo_info["fork"]:
                 cmd = [
                     "git",
                     "-C",
                     repo_path,
-                    "pull",
+                    "push",
                     "origin",
+                    "--tags",
                     repo_info["default_branch"],
-                    "--ff-only",
                 ]
                 subprocess.run(cmd, check=True)
 
