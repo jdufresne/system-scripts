@@ -29,6 +29,7 @@ def get_github(path, *, token, params=None):
 
 def main():
     args = parse_args()
+    args.dest.mkdir(parents=True, exist_ok=True)
 
     page = 0
     while True:
@@ -49,6 +50,7 @@ def main():
                 repo_path = args.dest / repo_info["parent"]["full_name"]
             else:
                 repo_path = args.dest / repo_info["full_name"]
+            repo_path.parent.mkdir(exist_ok=True)
 
             if not repo_path.is_dir():
                 cmd = ["git", "-C", args.dest, "clone", repo_info["ssh_url"]]
