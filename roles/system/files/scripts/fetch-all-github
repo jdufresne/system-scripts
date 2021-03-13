@@ -15,15 +15,20 @@ def parse_args():
     return parser.parse_args()
 
 
-def get_github(path, *, token, params=None):
+def github(path, *, token, method="get", params=None, json=None):
     BASE = "https://api.github.com"
     url = urllib.parse.urljoin(BASE, path)
     headers = {
         "Accept": "application/vnd.github.v3+json",
         "Authorization": f"token {token}",
     }
-    response = requests.get(url, headers=headers, params=params)
-    response.raise_for_status()
+    method = getattr(requests, method)
+    response = method(url, headers=headers, params=params, json=json)
+    try:
+        response.raise_for_status()
+    except requests.exceptions.HTTPError:
+        print(response.text)
+        raise
     return response
 
 
@@ -35,16 +40,20 @@ def main():
     while True:
         page += 1
         params = [("type", "owner"), ("page", page)]
-        response = get_github("/user/repos", token=args.token, params=params)
+        response = github("/user/repos", token=args.token, params=params)
 
         repos = response.json()
         if not repos:
             break
 
         for repo_info in repos:
-            print(repo_info["full_name"])
-            repo_response = get_github(repo_info["url"], token=args.token)
+            repo_response = github(repo_info["url"], token=args.token)
             repo_info = repo_response.json()
+
+            msg = repo_info["full_name"]
+            if repo_info["fork"]:
+                msg = f'{msg} (forked from {repo_info["parent"]["full_name"]})'
+            print(msg)
 
             if repo_info["fork"]:
                 repo_path = args.dest / repo_info["parent"]["full_name"]
@@ -88,26 +97,24 @@ def main():
             subprocess.run(cmd, check=True)
 
             if repo_info["fork"]:
-                cmd = [
-                    "git",
-                    "-C",
-                    repo_path,
-                    "pull",
-                    "upstream",
-                    repo_info["default_branch"],
-                    "--ff-only",
-                ]
+                cmd = ["git", "-C", repo_path, "sync"]
                 subprocess.run(cmd, check=True)
 
-                cmd = [
-                    "git",
-                    "-C",
-                    repo_path,
-                    "push",
-                    "origin",
-                    repo_info["default_branch"],
-                ]
-                subprocess.run(cmd, check=True)
+                if repo_info["default_branch"] != repo_info["parent"]["default_branch"]:
+                    github(
+                        repo_info["url"],
+                        token=args.token,
+                        method="patch",
+                        json={"default_branch": repo_info["parent"]["default_branch"]},
+                    )
+                    cmd = [
+                        "git",
+                        "-C",
+                        repo_path,
+                        "checkout",
+                        repo_info["parent"]["default_branch"],
+                    ]
+                    subprocess.run(cmd, check=True)
             else:
                 cmd = [
                     "git",
