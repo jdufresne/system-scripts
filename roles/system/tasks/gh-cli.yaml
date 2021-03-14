@@ -1,0 +1,8 @@
+- name: Install gh-cli YUM repository
+  command: dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+  become: yes
+
+- name: Install gh-cli
+  dnf:
+    name: gh
+  become: yes

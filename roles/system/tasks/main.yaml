@@ -73,3 +73,5 @@
     name: "{{ session_manager_plugin.dest }}"
     disable_gpg_check: yes
   become: yes
+
+- import_tasks: gh-cli.yaml
