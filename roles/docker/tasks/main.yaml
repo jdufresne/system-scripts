@@ -1,0 +1,40 @@
+- name: Uninstall old Docker
+  dnf:
+    state: absent
+    name:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-engine
+      - docker-engine-selinux
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-selinux
+      - podman
+      - podman-compose
+      - podman-docker
+      - podman-plugins
+      - podman-remote
+      - podman-tests
+  become: yes
+
+- name: Install Docker CE YUM repository
+  command: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  become: yes
+
+- name: Install Docker CE
+  dnf:
+    name:
+      - containerd.io
+      - docker-ce
+      - docker-ce-cli
+  become: yes
+
+- name: Enable Docker server
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+  become: yes
