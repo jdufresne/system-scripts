@@ -1,7 +1,14 @@
 #!/usr/bin/env python
 
-import subprocess
+import argparse
 import functools
+import subprocess
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("branches", nargs="*")
+    return parser.parse_args()
 
 
 class Git:
@@ -16,6 +23,8 @@ class Git:
         return functools.partial(self.run, name)
 
 
+args = parse_args()
+
 git = Git()
 
 # Halt if there are uncommitted changes.
@@ -26,9 +35,12 @@ git.checkout("--detach")
 try:
     git.fetch("--all", "--prune")
 
-    upstream_branches = git.for_each_ref(
-        "--format=%(refname:lstrip=3)", "refs/remotes/upstream/"
-    ).split()
+    if args.branches:
+        upstream_branches = args.branches
+    else:
+        upstream_branches = git.for_each_ref(
+            "--format=%(refname:lstrip=3)", "refs/remotes/upstream/"
+        ).split()
 
     fetch_refspec = [f"{branch}:{branch}" for branch in upstream_branches]
     git.fetch("upstream", *fetch_refspec)
