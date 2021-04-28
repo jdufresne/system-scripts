@@ -17,6 +17,8 @@
   loop:
     - client.cnf
     - nondurable.cnf
+    - perf.cnf
+    - strict.cnf
     - utf8.cnf
   become: yes
 
