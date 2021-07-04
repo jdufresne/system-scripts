@@ -35,6 +35,9 @@ tool = meld
 [difftool]
 prompt = false
 
+[init]
+defaultBranch = main
+
 [merge]
 ff = false
 tool = meld
