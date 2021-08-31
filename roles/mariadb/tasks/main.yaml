@@ -1,13 +1,13 @@
-- name: Install MariaDB
+- name: Install MySQL
   dnf:
     name:
-      - mariadb
-      - mariadb-common
-      - mariadb-devel
-      - mariadb-server
+      - community-mysql
+      - community-mysql-common
+      - community-mysql-devel
+      - community-mysql-server
   become: yes
 
-- name: Copy MariaDB configuration
+- name: Copy Mysql configuration
   copy:
     src: "{{ item }}"
     dest: /etc/my.cnf.d/
@@ -18,20 +18,16 @@
     - client.cnf
     - nondurable.cnf
     - perf.cnf
-    - strict.cnf
     - utf8.cnf
   become: yes
 
-- name: Start MariaDB server
+- name: Start Community-Mysql server
   systemd:
-    name: mariadb
+    name: mysqld
     enabled: yes
     state: started
   become: yes
 
-- name: Remove MariaDB root password
+- name: Remove MySQL root password
   command: mysqladmin password ''
   become: yes
-
-- name: Load MariaDB time zone information
-  shell: mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql --database mysql

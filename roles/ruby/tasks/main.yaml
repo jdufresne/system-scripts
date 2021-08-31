@@ -6,3 +6,20 @@
       - rubygem-rails
       - rubygem-rake
   become: yes
+
+- name: Download chruby
+  get_url:
+    url: https://raw.github.com/postmodern/chruby/master/pkg/chruby-0.3.9.tar.gz.asc
+    dest: ~/
+  register: chruby
+
+- name: Extract chruby
+  unarchive:
+    src: "{{ chruby.dest }}"
+    dest: ~/
+    remote_src: yes
+
+- name: Install chruby
+  make:
+    chdir: "{{ chruby.dest }}"
+    target: install
