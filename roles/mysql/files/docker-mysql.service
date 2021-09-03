@@ -1,0 +1,23 @@
+[Unit]
+Description=MySQL database server
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+ExecStartPre=/usr/bin/docker pull mysql:5.7
+ExecStartPre=/usr/bin/mkdir -p /var/lib/docker-mysql
+ExecStartPre=/usr/bin/chown mysql:mysql /var/lib/docker-mysql
+ExecStart=/usr/bin/docker run \
+    --rm \
+    --name mysql \
+    --user 27:27 \
+    --volume /etc/docker-mysql:/etc/mysql/conf.d \
+    --volume /var/lib/docker-mysql:/var/lib/mysql \
+    --publish 3306:3306 \
+    --env MYSQL_ALLOW_EMPTY_PASSWORD=yes \
+    mysql:5.7
+ExecStop=/usr/bin/docker kill mysql
+
+[Install]
+WantedBy=multi-user.target

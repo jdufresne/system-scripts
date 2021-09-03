@@ -6,11 +6,49 @@
       - community-mysql-devel
   become: yes
 
-- name: Copy MySQL configuration
+
+- name: Copy MySQL client configuration
   copy:
     src: client.cnf
     dest: /etc/my.cnf.d/
     owner: root
     group: root
     mode: 0644
+  become: yes
+
+- name: Create /etc/docker-mysql directory
+  file:
+    path: /etc/docker-mysql
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  become: yes
+
+- name: Copy MySQL server configuration
+  copy:
+    src: "{{ item }}"
+    dest: /etc/docker-mysql
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - nondurable.cnf
+    - perf.cnf
+  become: yes
+
+- name: Install MySQL systemd unit file
+  copy:
+    src: docker-mysql.service
+    dest:  /etc/systemd/system/
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+
+- name: Enable MySQL server
+  systemd:
+    name: docker-mysql
+    enabled: yes
+    state: started
   become: yes
