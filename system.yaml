@@ -7,7 +7,7 @@
     - dotfiles
     - emacs
     - flatpak
-    - mariadb
+    - mysql
     - nodejs
     - postgresql
     - python

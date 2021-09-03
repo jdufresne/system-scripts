@@ -6,7 +6,7 @@
       - community-mysql-devel
   become: yes
 
-- name: Copy Mysql configuration
+- name: Copy MySQL configuration
   copy:
     src: client.cnf
     dest: /etc/my.cnf.d/
