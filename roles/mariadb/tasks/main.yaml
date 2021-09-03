@@ -4,30 +4,13 @@
       - community-mysql
       - community-mysql-common
       - community-mysql-devel
-      - community-mysql-server
   become: yes
 
 - name: Copy Mysql configuration
   copy:
-    src: "{{ item }}"
+    src: client.cnf
     dest: /etc/my.cnf.d/
     owner: root
     group: root
     mode: 0644
-  loop:
-    - client.cnf
-    - nondurable.cnf
-    - perf.cnf
-    - utf8.cnf
-  become: yes
-
-- name: Start Community-Mysql server
-  systemd:
-    name: mysqld
-    enabled: yes
-    state: started
-  become: yes
-
-- name: Remove MySQL root password
-  command: mysqladmin password ''
   become: yes
