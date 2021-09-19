@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
 import argparse
+import functools
 import os
 import pathlib
 import shutil
+import sys
 import urllib
 
 import requests
@@ -12,48 +14,77 @@ import requests
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--token", required=True)
-    parser.add_argument("--remove", action="store_true")
+    parser.add_argument("--delete", action="store_true")
     parser.add_argument("path", type=pathlib.Path)
     return parser.parse_args()
 
 
-def get_github(path, *, token, params=None):
+class GitHub:
     BASE = "https://api.github.com"
-    url = urllib.parse.urljoin(BASE, path)
-    headers = {
-        "Accept": "application/vnd.github.v3+json",
-        "Authorization": f"token {token}",
-    }
-    response = requests.get(url, headers=headers, params=params)
-    response.raise_for_status()
-    return response
+
+    def __init__(self, token):
+        self.token = token
+
+    def request(self, path, *, method="get", **kwargs):
+        url = urllib.parse.urljoin(self.BASE, path)
+        headers = {
+            "Accept": "application/vnd.github.v3+json",
+            "Authorization": f"token {self.token}",
+        }
+        method = getattr(requests, method)
+        response = method(url, headers=headers, **kwargs)
+        try:
+            response.raise_for_status()
+        except requests.exceptions.HTTPError:
+            print(response.text, file=sys.stderr)
+            raise
+        return response.json()
+
+    def paginate(self, path, *, params):
+        page = 0
+        while True:
+            page += 1
+            page_params = [*params, ("page", page)]
+            response = self.get(path, params=page_params)
+            if not response:
+                break
+
+            yield response
+
+    def __getattr__(self, name):
+        return functools.partial(self.request, method=name)
 
 
 def main():
     args = parse_args()
 
-    response = get_github("/user", token=args.token)
-    user = response.json()
+    github = GitHub(args.token)
 
-    all_repos = set()
+    all_repos = {}
 
-    page = 0
-    while True:
-        page += 1
-        params = [("type", "owner"), ("page", page)]
-        response = get_github(user["repos_url"], token=args.token, params=params)
-        repos = response.json()
-        if not repos:
-            break
-
+    for repos in github.paginate("/user/repos", params=[("type", "owner")]):
         for repo_info in repos:
-            all_repos.add(repo_info["name"])
+            repo_info = github.get(repo_info["url"])
+            if repo_info["fork"]:
+                full_name = repo_info["parent"]["full_name"]
+            else:
+                full_name = repo_info["full_name"]
+            owner, name = full_name.split("/")
+            all_repos.setdefault(owner, []).append(name)
 
-    unknown = set(os.listdir(args.path)) - all_repos
+    unknown = set(os.listdir(args.path)).difference(all_repos)
     for d in sorted(unknown):
         print(d)
-        if args.remove:
+        if args.delete:
             shutil.rmtree(args.path / d)
+
+    for owner, repos in all_repos.items():
+        owner_path = args.path / owner
+        unknown = set(os.listdir(owner_path)).difference(repos)
+        for d in sorted(unknown):
+            print(os.path.join(owner, d))
+            if args.delete:
+                shutil.rmtree(owner_path / d)
 
 
 if __name__ == "__main__":
