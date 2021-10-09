@@ -46,7 +46,9 @@
   become: yes
 
 - name: Install Ruby versions
-  command: ruby-install --no-install-deps --no-reinstall ruby "{{ item }}"
-  with_items:
-    - 2.7
-    - 3.0
+  command: "ruby-install --cleanup --no-install-deps --no-reinstall ruby {{ item }}"
+  with_items: "{{ ruby_versions }}"
+
+- name: Install bundler
+  command: "chruby-exec {{ item }} -- gem install bundler"
+  with_items: "{{ ruby_versions }}"
