@@ -1,0 +1,7 @@
+- name: Create common directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ cache_dir }}"
+    - ~/.local/bin

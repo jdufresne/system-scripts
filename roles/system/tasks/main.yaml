@@ -47,25 +47,25 @@
 - name: Download AWS CLI version 2
   get_url:
     url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
-    dest: ~/.cache/awscliv2.zip
+    dest: "{{ cache_dir }}/"
   register: awscliv2
 
 - name: Unzip AWS CLI version 2
   unarchive:
     src: "{{ awscliv2.dest }}"
-    dest: ~/.cache/
-    creates: ~/.cache/aws
+    dest: "{{ cache_dir }}/"
+    creates: "{{ cache_dir }}/aws"
 
 - name: Install AWS CLI version 2
   command:
-    cmd: "{{ ansible_env.HOME }}/.cache/aws/install"
+    cmd: "{{ cache_dir }}/.cache/aws/install"
     creates: /usr/local/bin/aws
   become: yes
 
 - name: Download Session Manager plugin
   get_url:
     url: https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm
-    dest: ~/.cache/
+    dest: "{{ cache_dir }}/"
   register: session_manager_plugin
 
 - name: Install Session Manager plugin

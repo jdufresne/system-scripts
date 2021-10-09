@@ -30,7 +30,7 @@
 - name: Download geckodriver
   get_url:
     url: "{{ geckodriver_release.json | json_query('assets[*].browser_download_url') | select('match', '^.*-linux64\\.tar\\.gz$') | first }}"
-    dest: ~/.local/bin/
+    dest: "{{ cache_dir }}/"
   register: geckodriver
 
 - name: Extract geckodriver
