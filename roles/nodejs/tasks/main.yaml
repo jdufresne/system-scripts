@@ -4,3 +4,9 @@
       - npm
       - yarnpkg
   become: yes
+
+- name: Install global npm packages
+  npm:
+    global: yes
+    name: heroku
+  become: yes
