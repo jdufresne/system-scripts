@@ -34,7 +34,7 @@ git.diff("--exit-code")
 current_branch = git.branch("--show-current")
 git.checkout("--detach")
 try:
-    git.fetch("--all", "--prune")
+    git.fetch("--all", "--no-tags", "--prune")
 
     if args.all_branches:
         upstream_branches = git.for_each_ref(
@@ -47,7 +47,6 @@ try:
 
     fetch_refspec = [f"{branch}:{branch}" for branch in upstream_branches]
     git.fetch("upstream", *fetch_refspec)
-    git.push("--set-upstream", "--tags", "origin", *upstream_branches)
 finally:
     if current_branch:
         git.checkout(current_branch)
