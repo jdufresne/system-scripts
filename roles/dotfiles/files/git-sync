@@ -13,10 +13,12 @@ def parse_args():
 
 
 class Git:
-    def run(self, cmd, *args):
-        r = subprocess.run(
-            ["git", cmd, *args], stdout=subprocess.PIPE, text=True, check=True
-        )
+    def run(self, cmd, *args, capture_stdout=True):
+        kwargs = {"check": True}
+        if capture_stdout:
+            kwargs["stdout"] = subprocess.PIPE
+            kwargs["text"] = True
+        r = subprocess.run(["git", cmd, *args], **kwargs)
         return r.stdout.strip()
 
     def __getattr__(self, name):
@@ -29,7 +31,7 @@ args = parse_args()
 git = Git()
 
 # Halt if there are uncommitted changes.
-git.diff("--exit-code")
+git.diff("--exit-code", capture_stdout=False)
 
 current_branch = git.branch("--show-current")
 git.checkout("--detach")
@@ -46,7 +48,7 @@ try:
         upstream_branches = [current_branch]
 
     fetch_refspec = [f"{branch}:{branch}" for branch in upstream_branches]
-    git.fetch("upstream", *fetch_refspec)
+    git.fetch("upstream", "--no-tags", *fetch_refspec)
 finally:
     if current_branch:
         git.checkout(current_branch)
