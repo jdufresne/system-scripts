@@ -5,8 +5,20 @@
       - yarnpkg
   become: yes
 
-- name: Install global npm packages
+- name: Make global package directory
+  file:
+    path: ~/.npm-global
+    state: directory
+
+- name: Configure global package location
+  command: npm config set prefix ~/.npm-global
+
+- name: Install npm.sh
+  copy:
+    src: npm.sh
+    dest: ~/.bashrc.d/
+
+- name: Install heroku npm package
   npm:
     global: yes
     name: heroku
-  become: yes
