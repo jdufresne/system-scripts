@@ -11,6 +11,7 @@
     section: main
     option: "{{ item.option }}"
     value: "{{ item.value }}"
+    mode: 0644
   become: yes
   loop:
     - option: fastestmirror

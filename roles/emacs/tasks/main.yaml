@@ -14,13 +14,14 @@
   git:
     repo: git@github.com:jdufresne/emacs-init.git
     dest: ~/.emacs.d
-    force: yes
+    version: main
   notify: Restart Emacs daemon
 
 - name: Override emacs.service
   template:
     dest: ~/.config/systemd/user/emacs.service.d/
     src: override.conf
+    mode: 0664
   notify:
     - Reload systemd
     - Restart Emacs daemon
@@ -29,6 +30,7 @@
   copy:
     dest: ~/.local/share/applications/
     src: emacsclient.desktop
+    mode: 0664
 
 - name: Enable Emacs daemon
   systemd:

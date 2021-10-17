@@ -36,7 +36,7 @@
   copy:
     src: scripts/
     dest: ~/.local/bin/
-    mode: 0755
+    mode: 0775
 
 - name: Remove system AWS CLI
   dnf:

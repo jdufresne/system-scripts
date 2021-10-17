@@ -10,13 +10,17 @@
     dest: ~/.ssh/
     mode: 0600
 
-- name: Gather hosts keys
+- name: Check host keys
+  command: "ssh-keygen -F {{ item }}"
+  loop: "{{ ssh_hosts }}"
+  register: check_host_keys
+  ignore_errors: yes
+  changed_when: false
+
+- name: Gather host keys
   command: "ssh-keyscan {{ item }}"
-  loop:
-    - 192.168.0.10
-    - 192.168.0.20
-    - 192.168.0.30
-    - github.com
+  loop: "{{ check_host_keys.results | selectattr('item') | list }}"
+  when: item.failed
   register: host_keys
   ignore_errors: yes
 

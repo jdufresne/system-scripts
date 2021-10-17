@@ -2,6 +2,7 @@
   file:
     path: "{{ item }}"
     state: directory
+    mode: 0775
   loop:
     - "{{ cache_dir }}"
     - ~/.local/bin

@@ -7,12 +7,13 @@
   copy:
     src: git-sync
     dest: ~/.local/bin/
-    mode: 0755
+    mode: 0775
 
 - name: Copy dot files
   copy:
     src: "{{ item }}"
     dest: "~/.{{ item }}"
+    mode: 0664
   loop:
     - gitconfig
     - gitignore
@@ -20,21 +21,17 @@
     - ignore
     - ripgreprc
 
-- name: Custom environment variables
-  lineinfile:
-    path: ~/.bash_profile
-    line: "export RIPGREP_CONFIG_PATH={{ ansible_env.HOME }}/.ripgreprc"
-    regexp: \bRIPGREP_CONFIG_PATH=
-
 - name: Create ~/.bashrc.d directory
   file:
     path: ~/.bashrc.d
     state: directory
+    mode: 0775
 
 - name: Copy bashrc scripts
   copy:
     src: "{{ item }}"
     dest: "~/.bashrc.d/{{ item }}"
+    mode: 0664
   loop:
     - django.sh
     - project.sh
