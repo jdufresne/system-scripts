@@ -5,7 +5,7 @@
       - yarnpkg
   become: yes
 
-- name: Make global package directory
+- name: Create global package directory
   file:
     path: ~/.npm-global
     state: directory
