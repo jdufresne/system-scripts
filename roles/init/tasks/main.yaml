@@ -2,6 +2,6 @@
   file:
     path: "{{ item }}"
     state: directory
-  with_items:
+  loop:
     - "{{ cache_dir }}"
     - ~/.local/bin

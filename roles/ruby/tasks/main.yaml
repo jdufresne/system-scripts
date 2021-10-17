@@ -3,6 +3,7 @@
     name:
       - ruby
       - ruby-devel
+      - rubygem-bundler
   become: yes
 
 - name: Download chruby
@@ -45,8 +46,22 @@
 
 - name: Install Ruby versions
   command: "ruby-install --cleanup --no-install-deps --no-reinstall ruby {{ item }}"
-  with_items: "{{ ruby_versions }}"
+  loop: "{{ ruby_versions }}"
 
 - name: Install bundler
   command: "chruby-exec {{ item }} -- gem install bundler"
-  with_items: "{{ ruby_versions }}"
+  loop: "{{ ruby_versions }}"
+
+- name: Install chruby.sh helper scripts
+  copy:
+    src: "{{ item }}"
+    dest: ~/.local/bin/
+    mode: 0755
+  loop:
+    - gemfile-default-lockfile
+    - gemfile-ruby-version
+
+- name: Install chruby.sh
+  copy:
+    src: chruby.sh
+    dest: ~/.bashrc.d/
