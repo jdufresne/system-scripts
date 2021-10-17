@@ -19,7 +19,7 @@ class Git:
             kwargs["stdout"] = subprocess.PIPE
             kwargs["text"] = True
         r = subprocess.run(["git", cmd, *args], **kwargs)
-        return r.stdout.strip()
+        return r.stdout.strip() if capture_stdout else None
 
     def __getattr__(self, name):
         name = name.replace("_", "-")
