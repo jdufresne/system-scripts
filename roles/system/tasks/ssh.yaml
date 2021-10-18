@@ -18,15 +18,15 @@
   changed_when: false
 
 - name: Gather host keys
-  command: "ssh-keyscan {{ item }}"
-  loop: "{{ check_host_keys.results | selectattr('item') | list }}"
+  command: "ssh-keyscan {{ item.item }}"
+  loop: "{{ check_host_keys.results }}"
   when: item.failed
   register: host_keys
   ignore_errors: yes
 
 - name: Add host keys to known_hosts
   known_hosts:
-    name: "{{ item.item }}"
+    name: "{{ item.item.item }}"
     key: "{{ item.stdout }}"
   loop: "{{ host_keys.results }}"
-  when: not item.failed
+  when: not (item.get('skipped', False) or item.get('failed', False))
