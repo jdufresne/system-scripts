@@ -36,3 +36,4 @@
     - django.sh
     - project.sh
     - ripgrep.sh
+    - scripts.sh
