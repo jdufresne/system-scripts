@@ -49,6 +49,7 @@ try:
 
     fetch_refspec = [f"{branch}:{branch}" for branch in upstream_branches]
     git.fetch("upstream", "--no-tags", *fetch_refspec)
+    git.push("--set-upstream", "origin", *upstream_branches)
 finally:
     if current_branch:
         git.checkout(current_branch)
