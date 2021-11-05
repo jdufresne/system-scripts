@@ -28,8 +28,6 @@
   loop:
     - name: fsync
       value: "off"
-    - name: fsync
-      value: "off"
     - name: synchronous_commit
       value: "off"
     - name: full_page_writes
