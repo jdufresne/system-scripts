@@ -11,7 +11,6 @@
       - python3-isort
       - python3-tox
       - python3-wheel
-      - python35
       - python36
       - python38
       - python39
