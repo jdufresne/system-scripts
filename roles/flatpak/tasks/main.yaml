@@ -13,5 +13,4 @@
     method: user
   loop:
     - com.slack.Slack
-    - org.signal.Signal
     - us.zoom.Zoom
