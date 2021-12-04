@@ -15,9 +15,6 @@
       # memcached
       - libmemcached-devel
       - memcached
-      # Selenium
-      - chromedriver
-      - chromium
   become: yes
 
 - name: Get geckodriver release information
