@@ -5,3 +5,59 @@
       - ruby-devel
       - rubygem-bundler
   become: yes
+
+- name: Download chruby
+  get_url:
+    url: "https://github.com/postmodern/chruby/archive/v{{ chruby_version }}.tar.gz"
+    dest: "{{ cache_dir }}/"
+  register: chruby_download
+
+- name: Extract chruby
+  unarchive:
+    src: "{{ chruby_download.dest }}"
+    dest: "{{ cache_dir }}/"
+    creates: "{{ cache_dir }}/chruby-{{ chruby_version }}"
+
+- name: Install chruby
+  command:
+    cmd: scripts/setup.sh
+    chdir: "{{ cache_dir }}/chruby-{{ chruby_version }}"
+    creates: /etc/profile.d/chruby.sh
+  become: yes
+
+- name: Download ruby-install
+  get_url:
+    url: "https://github.com/postmodern/ruby-install/archive/v{{ ruby_install_version }}.tar.gz"
+    dest: "{{ cache_dir }}/"
+  register: ruby_install_download
+
+- name: Extract ruby-install
+  unarchive:
+    src: "{{ ruby_install_download.dest }}"
+    dest: "{{ cache_dir }}/"
+    creates: "{{ cache_dir }}/ruby-install-{{ ruby_install_version }}"
+  register: ruby_install_source
+
+- name: Install ruby-install
+  make:
+    chdir: "{{ cache_dir }}/ruby-install-{{ ruby_install_version }}"
+    target: install
+  become: yes
+
+- name: Install Ruby versions
+  command:
+    cmd: "ruby-install --cleanup --no-install-deps --no-reinstall ruby {{ item }}"
+    creates: "~/.rubies/ruby-{{ item }}"
+  loop: "{{ ruby_versions }}"
+
+- name: Install Bundler
+  command:
+    cmd: "chruby-exec {{ item }} -- gem install bundler"
+    creates: "~/.rubies/ruby-{{ item }}/bin/bundle"
+  loop: "{{ ruby_versions }}"
+
+- name: Install chruby.sh
+  copy:
+    src: chruby.sh
+    dest: ~/.bashrc.d/
+    mode: 0664
