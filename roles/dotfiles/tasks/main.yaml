@@ -19,7 +19,6 @@
   loop:
     - gitconfig
     - gitignore
-    - hgrc
     - ignore
     - ripgreprc
 
