@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+
+import argparse
+import os
+import subprocess
+from pathlib import Path
+
+import yaml
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--no-migrations", action="store_false", dest="migrations")
+    parser.add_argument("--sync", action="store_true")
+    parser.add_argument("--template", action="store_true")
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+
+    p = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    root = Path(p.stdout.strip())
+    project = root.name
+
+    subprocess.run(["bundle", "install"], check=True)
+
+    if os.path.isfile("package-lock.json"):
+        subprocess.run(["npm", "ci"], check=True)
+    if os.path.isfile("yarn.lock"):
+        subprocess.run(["yarn", "install"], check=True)
+
+    database = project
+    database_config = {
+        "development": {
+            "adapter": "postgresql",
+            "database": database,
+        },
+        "test": {
+            "adapter": "postgresql",
+            "database": f"{database}_test",
+        },
+    }
+    root.joinpath("config", "database.yml").write_text(yaml.dump(database_config))
+
+    subprocess.run(["dropdb", "--force", "--if-exists", database], check=True)
+    subprocess.run(["dropdb", "--force", "--if-exists", f"{database}_test"], check=True)
+
+    cmd = ["createdb"]
+    if args.template:
+        cmd.append(f"--template={database}_template")
+    cmd.append(database)
+    subprocess.run(cmd, check=True)
+    subprocess.run(["createdb", f"{database}_test"], check=True)
+
+    if args.migrations:
+        subprocess.run(["bundle", "exec", "rails", "db:migrate"], check=True)
+
+    if args.sync:
+        subprocess.run(["bundle", "exec", "rails", "sync", "bootstrap"], check=True)
+
+
+if __name__ == "__main__":
+    main()
