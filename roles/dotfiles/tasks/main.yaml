@@ -1,6 +1,8 @@
-- name: Install meld
+- name: Install git tools
   dnf:
-    name: meld
+    name:
+      - gh
+      - meld
   become: yes
 
 - name: Install git-sync scripts
