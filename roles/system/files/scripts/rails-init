@@ -28,7 +28,7 @@ def main():
     root = Path(p.stdout.strip())
     project = root.name
 
-    subprocess.run(["bundle", "install"], check=True)
+    subprocess.run(["b", "install"], check=True)
 
     if os.path.isfile("package-lock.json"):
         subprocess.run(["npm", "ci"], check=True)
@@ -59,10 +59,10 @@ def main():
     subprocess.run(["createdb", f"{database}_test"], check=True)
 
     if args.migrations:
-        subprocess.run(["bundle", "exec", "rails", "db:migrate"], check=True)
+        subprocess.run(["be", "rails", "db:migrate"], check=True)
 
     if args.sync:
-        subprocess.run(["bundle", "exec", "rails", "sync", "bootstrap"], check=True)
+        subprocess.run(["be", "rails", "sync", "bootstrap"], check=True)
 
 
 if __name__ == "__main__":

@@ -50,14 +50,11 @@
     creates: "~/.rubies/ruby-{{ item }}"
   loop: "{{ ruby_versions }}"
 
-- name: Install Bundler
-  command:
-    cmd: "chruby-exec {{ item }} -- gem install bundler"
-    creates: "~/.rubies/ruby-{{ item }}/bin/bundle"
-  loop: "{{ ruby_versions }}"
-
-- name: Install chruby.sh
+- name: Install be script
   copy:
-    src: chruby.sh
-    dest: ~/.bashrc.d/
-    mode: 0664
+    src: "{{ item }}"
+    dest: ~/.local/bin/
+    mode: 0775
+  loop:
+    - b
+    - be
