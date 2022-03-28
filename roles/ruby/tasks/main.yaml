@@ -50,7 +50,7 @@
     creates: "~/.rubies/ruby-{{ item }}"
   loop: "{{ ruby_versions }}"
 
-- name: Install be script
+- name: Install helper scripts
   copy:
     src: "{{ item }}"
     dest: ~/.local/bin/
