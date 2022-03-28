@@ -1,5 +1,3 @@
 #!/bin/bash
 
-set -eu
-
-exec b exec "$@"
+b exec "$@"
