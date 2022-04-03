@@ -43,7 +43,7 @@ def main():
         },
         "test": {
             "adapter": "postgresql",
-            "database": f"{database}_test",
+            "database": f"{database}_test<%= ENV['TEST_ENV_NUMBER'] %>",
         },
     }
     root.joinpath("config", "database.yml").write_text(yaml.dump(database_config))
