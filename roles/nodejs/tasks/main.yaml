@@ -2,7 +2,6 @@
   dnf:
     name:
       - npm
-      - yarnpkg
   become: yes
 
 - name: Install heroku npm package

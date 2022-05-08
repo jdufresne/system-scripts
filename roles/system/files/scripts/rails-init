@@ -29,11 +29,7 @@ def main():
     project = root.name
 
     subprocess.run(["b", "install"], check=True)
-
-    if os.path.isfile("package-lock.json"):
-        subprocess.run(["npm", "ci"], check=True)
-    if os.path.isfile("yarn.lock"):
-        subprocess.run(["yarn", "install"], check=True)
+    subprocess.run(["npm", "ci"], check=True)
 
     database = project
     database_config = {
