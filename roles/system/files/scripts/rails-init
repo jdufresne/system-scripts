@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import argparse
-import os
 import subprocess
 from pathlib import Path
 
@@ -28,7 +27,7 @@ def main():
     root = Path(p.stdout.strip())
     project = root.name
 
-    subprocess.run(["b", "install"], check=True)
+    subprocess.run(["bundle", "install"], check=True)
     subprocess.run(["npm", "ci"], check=True)
 
     database = project
@@ -55,10 +54,10 @@ def main():
     subprocess.run(["createdb", f"{database}_test"], check=True)
 
     if args.migrations:
-        subprocess.run(["be", "rails", "db:migrate"], check=True)
+        subprocess.run(["bundle", "exec", "rails", "db:migrate"], check=True)
 
     if args.sync:
-        subprocess.run(["be", "rails", "sync", "bootstrap"], check=True)
+        subprocess.run(["bundle", "exec", "rails", "sync", "bootstrap"], check=True)
 
 
 if __name__ == "__main__":
