@@ -43,7 +43,7 @@
 - name: Set default Ruby version
   command:
     argv:
-      - rvm
+      - ~/.rvm/bin/rvm
       - alias
       - create
       - default
