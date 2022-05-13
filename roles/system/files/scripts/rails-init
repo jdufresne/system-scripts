@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import os
 import subprocess
 from pathlib import Path
 
@@ -28,7 +29,7 @@ def main():
     project = root.name
 
     subprocess.run(["bundle", "install"], check=True)
-    subprocess.run(["npm", "ci"], check=True)
+    subprocess.run(["npm", "install"], check=True)
 
     database = project
     database_config = {
@@ -45,6 +46,8 @@ def main():
 
     subprocess.run(["dropdb", "--force", "--if-exists", database], check=True)
     subprocess.run(["dropdb", "--force", "--if-exists", f"{database}_test"], check=True)
+    for n in range(2, os.cpu_count()):
+        subprocess.run(["dropdb", "--force", "--if-exists", f"{database}_test{n}"], check=True)
 
     cmd = ["createdb"]
     if args.template:
@@ -52,6 +55,8 @@ def main():
     cmd.append(database)
     subprocess.run(cmd, check=True)
     subprocess.run(["createdb", f"{database}_test"], check=True)
+    for n in range(2, os.cpu_count()):
+        subprocess.run(["createdb", f"{database}_test{n}"], check=True)
 
     if args.migrations:
         subprocess.run(["bundle", "exec", "rails", "db:migrate"], check=True)
