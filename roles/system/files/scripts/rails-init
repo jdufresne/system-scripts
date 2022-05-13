@@ -46,7 +46,7 @@ def main():
 
     subprocess.run(["dropdb", "--force", "--if-exists", database], check=True)
     subprocess.run(["dropdb", "--force", "--if-exists", f"{database}_test"], check=True)
-    for n in range(2, os.cpu_count()):
+    for n in range(2, os.cpu_count() + 1):
         subprocess.run(["dropdb", "--force", "--if-exists", f"{database}_test{n}"], check=True)
 
     cmd = ["createdb"]
@@ -55,8 +55,6 @@ def main():
     cmd.append(database)
     subprocess.run(cmd, check=True)
     subprocess.run(["createdb", f"{database}_test"], check=True)
-    for n in range(2, os.cpu_count()):
-        subprocess.run(["createdb", f"{database}_test{n}"], check=True)
 
     if args.migrations:
         subprocess.run(["bundle", "exec", "rails", "db:migrate"], check=True)
