@@ -4,7 +4,7 @@
       - dconf-editor
       - deluge-gtk
       - gimp
-      - python3-psutil  # For dconf
+      - python3-psutil # For dconf
       - thunderbird
   become: yes
 

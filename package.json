@@ -1,0 +1,8 @@
+{
+  "name": "system-scripts",
+  "private": true,
+  "author": "Jon Dufresne",
+  "devDependencies": {
+    "prettier": "*"
+  }
+}

@@ -5,7 +5,7 @@
       - postgresql-contrib
       - postgresql-devel
       - postgresql-server
-      - python3-psycopg2  # For postgresql_user
+      - python3-psycopg2 # For postgresql_user
   become: yes
 
 - name: Initialize PostgreSQL
