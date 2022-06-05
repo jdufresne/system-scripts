@@ -1,6 +1,10 @@
 - name: Enable Google Chrome YUM repository
-  command:
-    cmd: dnf config-manager --set-enabled google-chrome
+  ini_file:
+    path: /etc/yum.repos.d/google-chrome.repo
+    section: google-chrome
+    option: enabled
+    value: 1
+    mode: 0644
   become: yes
 
 - name: Install Google Chrome
