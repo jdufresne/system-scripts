@@ -1,0 +1,28 @@
+- name: Enable Google Chrome YUM repository
+  command:
+    cmd: dnf config-manager --set-enabled google-chrome
+  become: yes
+
+- name: Install Google Chrome
+  dnf:
+    name:
+      - google-chrome-stable
+  become: yes
+
+- name: Get latest ChromeDriver release
+  uri:
+    url: https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+    return_content: yes
+  register: chromedriver_release
+
+- name: Download ChromeDriver
+  get_url:
+    url: "https://chromedriver.storage.googleapis.com/{{ chromedriver_release.content }}/chromedriver_linux64.zip"
+    dest: "{{ cache_dir }}/chromedriver_linux64-{{ chromedriver_release.content }}.zip"
+  register: chromedriver
+
+- name: Extract ChromeDriver
+  unarchive:
+    src: "{{ chromedriver.dest }}"
+    dest: ~/.local/bin/
+    remote_src: yes
