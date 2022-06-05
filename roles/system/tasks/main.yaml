@@ -9,6 +9,7 @@
     name:
       - "@multimedia"
       - "@sound-and-video"
+      - ansible-lint
       - ccache
       - gitk
       - graphviz
@@ -21,15 +22,9 @@
       - gstreamer1-plugins-ugly-free
       - jq
       - kernel-devel
-      - openldap-devel
       - rpmconf
       - sqlite-devel
       - x264
-  become: yes
-
-- name: Install ansible-lint
-  dnf:
-    name: ansible-lint
   become: yes
 
 - name: Install scripts
