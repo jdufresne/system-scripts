@@ -6,15 +6,25 @@
       - rubygem-bundler
   become: yes
 
+- name: Check RVM GPG keys
+  command: "gpg --list-keys {{ item }}"
+  loop:
+    - 409B6B1796C275462A1703113804BB82D39DC0E3
+    - 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+  register: rvm_gpg_keys
+  ignore_errors: yes
+  changed_when: false
+
 - name: Install RVM GPG keys
   command:
     argv:
       - gpg
       - --keyserver
       - hkp://keys.gnupg.net
-      - --recv-keys
-      - 409B6B1796C275462A1703113804BB82D39DC0E3
-      - 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+      - --receive-keys
+      - "{{ item.item }}"
+  loop: "{{ rvm_gpg_keys.results }}"
+  when: item.failed
 
 - name: Download RVM
   get_url:
