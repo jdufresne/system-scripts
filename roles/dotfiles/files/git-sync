@@ -8,6 +8,7 @@ import subprocess
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--all-branches", action="store_true")
+    parser.add_argument("--force", action="store_true")
     parser.add_argument("branches", nargs="*")
     return parser.parse_args()
 
@@ -49,7 +50,11 @@ try:
 
     fetch_refspec = [f"{branch}:{branch}" for branch in upstream_branches]
     git.fetch("upstream", "--no-tags", *fetch_refspec)
-    git.push("--set-upstream", "origin", *upstream_branches)
+
+    options = ["--set-upstream"]
+    if args.force:
+        options.append("--force-with-lease")
+    git.push(*options, "origin", *upstream_branches)
 finally:
     if current_branch:
         git.checkout(current_branch)
