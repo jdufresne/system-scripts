@@ -8,6 +8,15 @@
       - python3-psycopg2 # For postgresql_user
   become: yes
 
+- name: Create PostgresSQL directory
+  file:
+    path: /var/lib/pgsql
+    state: directory
+    owner: postgres
+    group: postgres
+    mode: 0700
+  become: yes
+
 - name: Initialize PostgreSQL
   command: postgresql-setup --initdb
   args:
