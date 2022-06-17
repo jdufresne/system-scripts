@@ -48,12 +48,16 @@ try:
     else:
         upstream_branches = [current_branch]
 
-    fetch_refspec = [f"{branch}:{branch}" for branch in upstream_branches]
-    git.fetch("upstream", "--no-tags", *fetch_refspec)
+    options = []
+    if args.force:
+        options.append("--force")
+    options.append("upstream")
+    options += [f"{branch}:{branch}" for branch in upstream_branches]
+    git.fetch(*options)
 
     options = ["--set-upstream", "--tags"]
     if args.force:
-        options.append("--force-with-lease")
+        options.append("--force")
     git.push(*options, "origin", *upstream_branches)
 finally:
     if current_branch:
