@@ -29,7 +29,7 @@ def main():
     project = root.name
 
     subprocess.run(["bundle", "install"], check=True)
-    subprocess.run(["npm", "install", "--no-audit"], check=True)
+    subprocess.run(["npm", "install", "--no-audit", "--no-fund"], check=True)
 
     database = project
     database_config = {
