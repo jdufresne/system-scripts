@@ -6,6 +6,12 @@
       - rubygem-bundler
   become: yes
 
+- name: Copy Bundler configuration
+  copy:
+    src: bundle.config
+    dest: ~/.bundle/config
+    mode: 0664
+
 - name: Check RVM GPG keys
   command: "gpg --list-keys {{ item }}"
   loop:
