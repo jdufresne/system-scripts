@@ -7,7 +7,7 @@
 
 - name: Install git-sync-upstream
   pip:
-    name: git-sync-upstream==1.0.4
+    name: git-sync-upstream==1.0.5
     extra_args: --user
 
 - name: Copy dot files
