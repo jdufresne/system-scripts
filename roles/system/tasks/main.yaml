@@ -53,7 +53,7 @@
 
 - name: Install AWS CLI version 2
   command:
-    cmd: "{{ cache_dir }}/.cache/aws/install"
+    cmd: "{{ cache_dir }}/aws/install"
     creates: /usr/local/bin/aws
   become: yes
 
