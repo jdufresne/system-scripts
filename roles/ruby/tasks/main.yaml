@@ -6,6 +6,12 @@
       - rubygem-bundler
   become: yes
 
+- name: Create Bundler directory
+  file:
+    path: ~/.bundle
+    state: directory
+    mode: 0775
+
 - name: Copy Bundler configuration
   copy:
     src: bundle.config
