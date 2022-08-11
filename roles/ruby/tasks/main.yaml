@@ -4,6 +4,7 @@
       - ruby
       - ruby-devel
       - rubygem-bundler
+      - rubygem-irb
   become: yes
 
 - name: Create Bundler directory
