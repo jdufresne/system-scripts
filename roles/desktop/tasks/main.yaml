@@ -24,6 +24,8 @@
     key: "{{ item.key }}"
     value: "{{ item.value }}"
   loop:
+    - key: /org/gnome/desktop/interface/clock-format
+      value: "'12h'"
     - key: /org/gnome/desktop/peripherals/touchpad/click-method
       value: "'areas'"
     - key: /org/gnome/mutter/workspaces-only-on-primary
