@@ -27,9 +27,6 @@ sync = "!git-sync-upstream"
 [checkout]
 defaultRemote = origin
 
-[commit]
-verbose = true
-
 [diff]
 tool = meld
 
