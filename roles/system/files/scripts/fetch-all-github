@@ -139,8 +139,9 @@ def main():
                     "-C",
                     repo_path,
                     "push",
-                    "origin",
+                    "--force",
                     "--tags",
+                    "origin",
                     default_branch,
                 ]
                 subprocess.run(cmd, check=True)
