@@ -70,3 +70,5 @@
   become: yes
 
 - import_tasks: gh-cli.yaml
+
+- import_tasks: terraform.yaml
