@@ -73,6 +73,6 @@
       - ruby-3.1.2
     creates: "~/.rvm/rubies/default/bin/ruby"
 
-- name: Install Solargraph
+- name: Install solargraph
   gem:
     name: solargraph
