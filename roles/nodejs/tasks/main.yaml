@@ -11,6 +11,13 @@
   environment:
     npm_config_prefix: ~/.npm-global
 
+- name: Install typescript-language-server npm package
+  npm:
+    name: typescript-language-server
+    global: yes
+  environment:
+    npm_config_prefix: ~/.npm-global
+
 - name: Install npm.sh
   copy:
     src: npm.sh
