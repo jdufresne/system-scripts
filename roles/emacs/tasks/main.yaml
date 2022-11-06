@@ -6,6 +6,7 @@
       - mozilla-fira-fonts-common
       - mozilla-fira-mono-fonts
       - mozilla-fira-sans-fonts
+      - nodejs-bash-language-server
       - ripgrep
   become: yes
   notify: Restart Emacs daemon
