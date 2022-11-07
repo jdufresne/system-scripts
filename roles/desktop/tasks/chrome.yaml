@@ -31,7 +31,7 @@
 
 - name: Download ChromeDriver
   get_url:
-    url: "https://chromedriver.storage.googleapis.com/index.html?path={{ chromedriver_release.content }}/"
+    url: "https://chromedriver.storage.googleapis.com/{{ chromedriver_release.content }}/chromedriver_linux64.zip"
     dest: "{{ cache_dir }}/chromedriver_linux64-{{ chromedriver_release.content }}.zip"
   register: chromedriver
 
