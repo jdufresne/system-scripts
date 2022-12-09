@@ -60,8 +60,7 @@
       - install
       - "ruby-{{ item }}"
     creates: "~/.rvm/rubies/ruby-{{ item }}/bin/ruby"
-  loop:
-    - 3.1.2
+  loop: "{{ ruby_versions }}"
 
 - name: Set default Ruby version
   command:
@@ -70,9 +69,12 @@
       - alias
       - create
       - default
-      - ruby-3.1.2
+      - "ruby-{{ ruby_versions[0] }}"
     creates: "~/.rvm/rubies/default/bin/ruby"
 
-- name: Install solargraph
+- name: Install gems
   gem:
-    name: solargraph
+    name: "{{ item }}"
+  loop:
+    - solargraph
+    - rubocop
