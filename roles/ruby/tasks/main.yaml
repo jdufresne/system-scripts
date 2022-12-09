@@ -70,7 +70,7 @@
       - create
       - default
       - "ruby-{{ ruby_versions[0] }}"
-    creates: "~/.rvm/rubies/default/bin/ruby"
+  changed_when: true
 
 - name: Install gems
   gem:
