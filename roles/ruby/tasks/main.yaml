@@ -51,6 +51,7 @@
       - bash
       - "{{ rvm_download.dest }}"
       - stable
+      - --ignore-dotfiles
     creates: ~/.rvm/bin/rvm
 
 - name: Install Ruby versions
@@ -76,5 +77,12 @@
   gem:
     name: "{{ item }}"
   loop:
-    - solargraph
+    - benchmark-ips
     - rubocop
+    - solargraph
+
+- name: Copy bashrc script
+  copy:
+    src: rvm.sh
+    dest: ~/.bashrc.d/
+    mode: 0664
