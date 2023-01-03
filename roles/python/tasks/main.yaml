@@ -2,9 +2,7 @@
   dnf:
     name:
       - black
-      - pypy
       - pypy3
-      - python2.7
       - python3
       - python3-build
       - python3-devel
