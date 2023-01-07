@@ -27,6 +27,12 @@
     key: "{{ item.key }}"
     value: "{{ item.value }}"
   loop:
+    - key: /org/gnome/desktop/background/primary-color
+      value: "'#000000'"
+    - key: /org/gnome/desktop/background/secondary-color
+      value: "'#000000'"
+    - key: /org/gnome/desktop/background/picture-options
+      value: "'none'"
     - key: /org/gnome/desktop/interface/clock-format
       value: "'12h'"
     - key: /org/gnome/desktop/peripherals/touchpad/click-method
