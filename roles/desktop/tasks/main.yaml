@@ -11,6 +11,9 @@
 - import_tasks: chrome.yaml
 - import_tasks: firefox.yaml
 
+- name: Disable Bluetooth
+  command: rfkill block bluetooth
+
 - name: Configure GNOME Dash favorite apps
   dconf:
     key: /org/gnome/shell/favorite-apps
