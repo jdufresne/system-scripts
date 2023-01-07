@@ -1,1 +1,0 @@
-. "${HOME}/.rvm/scripts/rvm"

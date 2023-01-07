@@ -19,70 +19,50 @@
     dest: ~/.bundle/config
     mode: 0664
 
-- name: Check RVM GPG keys
-  command: "gpg --list-keys {{ item }}"
-  loop:
-    - 409B6B1796C275462A1703113804BB82D39DC0E3
-    - 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-  register: rvm_gpg_keys
-  ignore_errors: yes
-  changed_when: false
-
-- name: Install RVM GPG keys
-  command:
-    argv:
-      - gpg
-      - --keyserver
-      - hkp://keys.gnupg.net
-      - --receive-keys
-      - "{{ item.item }}"
-  loop: "{{ rvm_gpg_keys.results }}"
-  when: item.failed
-
-- name: Download RVM
+- name: Download chruby
   get_url:
-    url: https://get.rvm.io
-    dest: "{{ cache_dir }}/rvm-installer"
-  register: rvm_download
+    url: "https://github.com/postmodern/chruby/archive/v{{ chruby_version }}.tar.gz"
+    dest: "{{ cache_dir }}/chruby-{{ chruby_version }}.tar.gz"
+  register: chruby_download
 
-- name: Install RVM
-  command:
-    argv:
-      - bash
-      - "{{ rvm_download.dest }}"
-      - stable
-      - --ignore-dotfiles
-    creates: ~/.rvm/bin/rvm
+- name: Unpack chruby archive
+  unarchive:
+    src: "{{ chruby_download.dest }}"
+    dest: "{{ cache_dir }}"
+    creates: "{{ cache_dir }}/chruby-{{ chruby_version }}"
+
+- name: Install chruby
+  make:
+    target: install
+    chdir: "{{ cache_dir }}/chruby-{{ chruby_version }}"
+  become: yes
+
+- name: Download ruby-install
+  get_url:
+    url: "https://github.com/postmodern/ruby-install/archive/v{{ ruby_install_version }}.tar.gz"
+    dest: "{{ cache_dir }}/ruby-install-{{ ruby_install_version }}.tar.gz"
+  register: ruby_install_download
+
+- name: Unpack ruby-install archive
+  unarchive:
+    src: "{{ ruby_install_download.dest }}"
+    dest: "{{ cache_dir }}"
+    creates: "{{ cache_dir }}/ruby-install-{{ ruby_install_version }}"
+
+- name: Install ruby-install
+  make:
+    target: install
+    chdir: "{{ cache_dir }}/ruby-install-{{ ruby_install_version }}"
+  become: yes
 
 - name: Install Ruby versions
   command:
-    argv:
-      - ~/.rvm/bin/rvm
-      - install
-      - "ruby-{{ item }}"
-    creates: "~/.rvm/rubies/ruby-{{ item }}/bin/ruby"
+    cmd: "ruby-install ruby {{ item }}"
+    creates: "~/.rubies/ruby-{{ item }}"
   loop: "{{ ruby_versions }}"
-
-- name: Set default Ruby version
-  command:
-    argv:
-      - ~/.rvm/bin/rvm
-      - alias
-      - create
-      - default
-      - "ruby-{{ ruby_versions[0] }}"
-  changed_when: true
-
-- name: Install gems
-  gem:
-    name: "{{ item }}"
-  loop:
-    - benchmark-ips
-    - rubocop
-    - solargraph
 
 - name: Copy bashrc script
   copy:
-    src: rvm.sh
+    src: chruby.sh
     dest: ~/.bashrc.d/
     mode: 0664
