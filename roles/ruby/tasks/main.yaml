@@ -57,7 +57,7 @@
 
 - name: Install Ruby versions
   command:
-    cmd: "ruby-install --no-install-deps ruby {{ item }}"
+    cmd: "ruby-install --no-install-deps --src-dir {{ cache_dir }}/rubies ruby {{ item }}"
     creates: "~/.rubies/ruby-{{ item }}"
   loop: "{{ ruby_versions }}"
 
