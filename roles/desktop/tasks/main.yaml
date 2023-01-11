@@ -28,7 +28,7 @@
     value: "{{ item.value }}"
   loop:
     - key: /org/gnome/desktop/background/primary-color
-      value: "'#454545'"
+      value: "'#5f5f5f'"
     - key: /org/gnome/desktop/background/secondary-color
       value: "'#000000'"
     - key: /org/gnome/desktop/background/picture-options
