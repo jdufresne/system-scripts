@@ -4,6 +4,13 @@
       - npm
   become: yes
 
+- name: Install pnpm
+  npm:
+    name: npm
+    global: yes
+  environment:
+    npm_config_prefix: ~/.npm-global
+
 - name: Install heroku npm package
   npm:
     name: heroku
