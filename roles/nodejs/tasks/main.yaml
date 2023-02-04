@@ -6,7 +6,7 @@
 
 - name: Install pnpm
   npm:
-    name: npm
+    name: pnpm
     global: yes
   environment:
     npm_config_prefix: ~/.npm-global
