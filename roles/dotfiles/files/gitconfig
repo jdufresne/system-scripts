@@ -24,6 +24,9 @@ rb = rebase
 st = status
 sync = "!git-sync-upstream"
 
+[branch]
+autoSetupMerge = false
+
 [checkout]
 defaultRemote = origin
 
