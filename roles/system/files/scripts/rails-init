@@ -10,6 +10,8 @@ import yaml
 
 def parse_args():
     parser = argparse.ArgumentParser()
+    parser.add_argument("--bootstrap", action="store_const", const=True)
+    parser.add_argument("--features", action="store_true")
     parser.add_argument("--no-migrations", action="store_false", dest="migrations")
     parser.add_argument("--sync", action="store_true")
     parser.add_argument("--template", action="store_true")
@@ -50,7 +52,9 @@ def main():
     subprocess.run(["dropdb", "--force", "--if-exists", database], check=True)
     subprocess.run(["dropdb", "--force", "--if-exists", f"{database}_test"], check=True)
     for n in range(2, os.cpu_count() + 1):
-        subprocess.run(["dropdb", "--force", "--if-exists", f"{database}_test{n}"], check=True)
+        subprocess.run(
+            ["dropdb", "--force", "--if-exists", f"{database}_test{n}"], check=True
+        )
 
     cmd = ["createdb"]
     if args.template:
@@ -61,16 +65,25 @@ def main():
 
     if args.template:
         sql = [
-            'DELETE FROM active_storage_attachments;',
-            'DELETE FROM active_storage_blobs;',
+            "DELETE FROM active_storage_attachments;",
+            "DELETE FROM active_storage_blobs;",
         ]
-        subprocess.run(['psql', database, '-c', ''.join(sql)], check=True)
+        subprocess.run(["psql", database, "-c", "".join(sql)], check=True)
 
     if args.migrations:
         subprocess.run(["bundle", "exec", "rails", "db:migrate"], check=True)
 
     if args.sync:
-        subprocess.run(["bundle", "exec", "rails", "sync", "bootstrap"], check=True)
+        subprocess.run(["bundle", "exec", "rails", "sync"], check=True)
+
+    bootstrap = args.bootstrap
+    if bootstrap is None:
+        bootstrap = not args.template and args.sync
+    if bootstrap:
+        subprocess.run(["bundle", "exec", "rails", "bootstrap"], check=True)
+
+    if args.features:
+        subprocess.run(["bundle", "exec", "rails", "bootstrap:features"], check=True)
 
 
 if __name__ == "__main__":
