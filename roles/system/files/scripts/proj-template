@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import multiprocessing
 import subprocess
 from pathlib import Path
 
@@ -19,10 +20,14 @@ def main():
     subprocess.run(["createdb", database], check=True)
     subprocess.run(
         [
-            "psql",
-            "-f",
-            Path.home().joinpath("dumps", f"{project}-scrubbed.sql"),
+            "pg_restore",
+            "--dbname",
             database,
+            "--exit-on-error",
+            "--jobs",
+            f"{multiprocessing.cpu_count()}",
+            "--no-owner",
+            Path.home().joinpath("dumps", f"{project}-scrubbed.dump"),
         ],
         check=True,
     )
