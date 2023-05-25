@@ -27,6 +27,7 @@ def main():
             "--jobs",
             f"{multiprocessing.cpu_count()}",
             "--no-owner",
+            "--verbose",
             Path.home().joinpath("dumps", f"{project}-scrubbed.dump"),
         ],
         check=True,
