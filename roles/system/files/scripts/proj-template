@@ -32,16 +32,7 @@ def main():
         ],
         check=True,
     )
-    subprocess.run(
-        [
-            "psql",
-            "--dbname",
-            database,
-            "--command",
-            "VACUUM ANALYZE",
-        ],
-        check=True,
-    )
+    subprocess.run(["vacuumdb", "--analyze", database], check=True)
 
 
 if __name__ == "__main__":
