@@ -13,4 +13,5 @@
     method: user
   loop:
     - com.slack.Slack
+    - com.spotify.Client
     - us.zoom.Zoom
