@@ -21,18 +21,12 @@
 
 - name: Extract Google Chrome version
   set_fact:
-    chrome_version: "{{ google_chrome_version_string.stdout | regex_replace('^Google Chrome ([0-9]+\\.[0-9]+\\.[0-9]+)\\..*$', '\\1') }}"
-
-- name: Get latest ChromeDriver release
-  uri:
-    url: "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_{{ chrome_version }}"
-    return_content: yes
-  register: chromedriver_release
+    chrome_version: "{{ google_chrome_version_string.stdout | regex_replace('^Google Chrome ([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+) *$', '\\1') }}"
 
 - name: Download ChromeDriver
   get_url:
-    url: "https://chromedriver.storage.googleapis.com/{{ chromedriver_release.content }}/chromedriver_linux64.zip"
-    dest: "{{ cache_dir }}/chromedriver_linux64-{{ chromedriver_release.content }}.zip"
+    url: "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{{ chrome_version }}/linux64/chromedriver-linux64.zip"
+    dest: "{{ cache_dir }}/chromedriver_linux64-{{ chrome_version }}.zip"
   register: chromedriver
 
 - name: Extract ChromeDriver
