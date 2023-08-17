@@ -32,5 +32,11 @@
 - name: Extract ChromeDriver
   unarchive:
     src: "{{ chromedriver.dest }}"
-    dest: ~/.local/bin/
+    dest: "{{ cache_dir }}"
+    remote_src: yes
+
+- name: Copy ChromeDriver
+  copy:
+    src: "{{ cache_dir }}/chromedriver-linux64/chromedriver"
+    dest: ~/.local/bin
     remote_src: yes
