@@ -36,7 +36,7 @@ def main():
     if os.path.exists("pnpm-lock.yaml"):
         subprocess.run(["pnpm", "install"], check=True)
 
-    database = project
+    database = project.replace('-', '_')
     database_config = {
         "development": {
             "adapter": "postgresql",
