@@ -21,6 +21,7 @@ pr-clean = "!f() { if [[ $(git branch --show-current) == pr/* ]]; then git check
 pushf = push --force-with-lease
 pushpr = "!g() { repo=$(echo $1 | cut -d: -f1) && branch=$(echo $1 | cut -d: -f2) && git push git@github.com:${repo}/literacyfootprints.git HEAD:${branch}; }; g"
 rb = rebase
+squash = "!f() { git reset --soft \"$(git merge-base HEAD main)\" && git commit --edit --message \"$(git log --format=%B --reverse HEAD..ORIG_HEAD)\"; }; f"
 st = status
 sync = "!git-sync-upstream"
 
