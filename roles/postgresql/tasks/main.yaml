@@ -55,3 +55,16 @@
     role_attr_flags: SUPERUSER
   become: yes
   become_user: postgres
+
+- name: Grant users joe and simon access to databases sales and logistics from ipv6 localhost ::1/128 using peer authentication.
+  postgresql_pg_hba:
+    dest: /var/lib/pgsql/data/pg_hba.conf
+    contype: host
+    users: all
+    source: 127.0.0.1/32
+    databases: all
+    method: trust
+    create: true
+  become: yes
+  become_user: postgres
+  notify: Restart PostgreSQL
