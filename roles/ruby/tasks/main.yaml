@@ -1,6 +1,8 @@
 - name: Install Ruby
   dnf:
     name:
+      - libyaml-devel
+      - readline-devel
       - ruby
       - ruby-devel
       - rubygem-bundler
