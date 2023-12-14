@@ -1,2 +1,2 @@
 . /usr/local/share/chruby/chruby.sh
-chruby ruby-3.2.0
+chruby ruby-3.2.2
