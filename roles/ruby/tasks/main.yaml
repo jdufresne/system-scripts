@@ -1,6 +1,8 @@
 - name: Install Ruby
   dnf:
     name:
+      - libsass
+      - libsass-devel
       - libyaml-devel
       - readline-devel
       - ruby
