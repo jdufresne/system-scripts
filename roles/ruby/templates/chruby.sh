@@ -1,2 +1,2 @@
 . /usr/local/share/chruby/chruby.sh
-chruby ruby-3.2.2
+chruby ruby-{{ ruby_versions[0] }}

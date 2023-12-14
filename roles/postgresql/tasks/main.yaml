@@ -43,6 +43,8 @@
       value: "off"
     - name: checkpoint_timeout
       value: 24h
+    - name: listen_addresses
+      value: "*"
   become: yes
   become_user: postgres
   notify: Restart PostgreSQL
