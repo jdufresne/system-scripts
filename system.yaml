@@ -14,3 +14,4 @@
     - redis
     - ruby
     - system
+    - vagrant
