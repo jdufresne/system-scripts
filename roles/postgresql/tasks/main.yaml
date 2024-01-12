@@ -35,14 +35,18 @@
     name: "{{ item.name }}"
     value: "{{ item.value }}"
   loop:
+    - name: checkpoint_timeout
+      value: 24h
     - name: fsync
-      value: "off"
-    - name: synchronous_commit
       value: "off"
     - name: full_page_writes
       value: "off"
-    - name: checkpoint_timeout
-      value: 24h
+    - name: max_wal_senders
+      value: 0
+    - name: synchronous_commit
+      value: "off"
+    - name: wal_level
+      value: minimal
   become: yes
   become_user: postgres
   notify: Restart PostgreSQL
