@@ -84,7 +84,23 @@ def main():
         ],
         check=True,
     )
-    subprocess.run(["vacuumdb", "--analyze", database], check=True)
+    subprocess.run(
+        [
+            "docker",
+            "run",
+            "--rm",
+            "--network",
+            "postgres",
+            "vacuumdb",
+            "--host",
+            "postgres",
+            "--user",
+            user,
+            "--analyze",
+            database,
+        ],
+        check=True,
+    )
 
 
 if __name__ == "__main__":
