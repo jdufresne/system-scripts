@@ -43,10 +43,12 @@ def main():
     database_config = {
         "development": {
             "adapter": "postgresql",
+            "host": "localhost",
             "database": database,
         },
         "test": {
             "adapter": "postgresql",
+            "host": "localhost",
             "database": f"{database}_test<%= ENV['TEST_ENV_NUMBER'] %>",
         },
     }
@@ -59,7 +61,7 @@ def main():
             ["dropdb", "--host", "localhost", "--force", "--if-exists", f"{database}_test{n}"], check=True
         )
 
-    cmd = ["createdb"]
+    cmd = ["createdb", "--host", "localhost"]
     if args.template:
         cmd.append(f"--template={database}_template")
     cmd.append(database)
