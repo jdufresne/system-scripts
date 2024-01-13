@@ -91,6 +91,7 @@ def main():
             "--rm",
             "--network",
             "postgres",
+            "postgres",
             "vacuumdb",
             "--host",
             "postgres",
