@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import getpass
 import multiprocessing
 import subprocess
 from pathlib import Path
@@ -14,13 +15,64 @@ def main():
     )
     root = Path(p.stdout.strip())
     project = root.name
+    dumps = Path.home().joinpath("dumps")
+    user = getpass.getuser()
 
     database = f"{project}_template"
-    subprocess.run(["dropdb", "--force", "--if-exists", database], check=True)
-    subprocess.run(["createdb", database], check=True)
+
+    subprocess.run(["docker", "pull", "postgres"], check=True)
+
     subprocess.run(
         [
+            "docker",
+            "run",
+            "--rm",
+            "--network",
+            "postgres",
+            "postgres",
+            "dropdb",
+            "--host",
+            "postgres",
+            "--user",
+            user,
+            "--force",
+            "--if-exists",
+            database,
+        ],
+        check=True,
+    )
+    subprocess.run(
+        [
+            "docker",
+            "run",
+            "--rm",
+            "--network",
+            "postgres",
+            "postgres",
+            "createdb",
+            "--host",
+            "postgres",
+            "--user",
+            user,
+            database,
+        ],
+        check=True,
+    )
+    subprocess.run(
+        [
+            "docker",
+            "run",
+            "--rm",
+            "--network",
+            "postgres",
+            "--volume",
+            f"{dumps}:{dumps}:z",
+            "postgres",
             "pg_restore",
+            "--host",
+            "postgres",
+            "--user",
+            user,
             "--dbname",
             database,
             "--exit-on-error",
@@ -28,7 +80,7 @@ def main():
             f"{multiprocessing.cpu_count()}",
             "--no-owner",
             "--verbose",
-            Path.home().joinpath("dumps", f"{project}-scrubbed.dump"),
+            dumps.joinpath(f"{project}-scrubbed.dump"),
         ],
         check=True,
     )

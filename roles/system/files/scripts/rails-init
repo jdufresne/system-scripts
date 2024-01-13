@@ -52,11 +52,11 @@ def main():
     }
     root.joinpath("config", "database.yml").write_text(yaml.dump(database_config))
 
-    subprocess.run(["dropdb", "--force", "--if-exists", database], check=True)
-    subprocess.run(["dropdb", "--force", "--if-exists", f"{database}_test"], check=True)
+    subprocess.run(["dropdb", "--host", "localhost", "--force", "--if-exists", database], check=True)
+    subprocess.run(["dropdb", "--host", "localhost", "--force", "--if-exists", f"{database}_test"], check=True)
     for n in range(2, os.cpu_count() + 1):
         subprocess.run(
-            ["dropdb", "--force", "--if-exists", f"{database}_test{n}"], check=True
+            ["dropdb", "--host", "localhost", "--force", "--if-exists", f"{database}_test{n}"], check=True
         )
 
     cmd = ["createdb"]
@@ -64,7 +64,7 @@ def main():
         cmd.append(f"--template={database}_template")
     cmd.append(database)
     subprocess.run(cmd, check=True)
-    subprocess.run(["createdb", f"{database}_test"], check=True)
+    subprocess.run(["createdb", "--host", "localhost", f"{database}_test"], check=True)
 
     if args.migrations:
         subprocess.run(["bundle", "exec", "rails", "db:migrate"], check=True)
