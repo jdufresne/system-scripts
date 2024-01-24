@@ -1,2 +1,2 @@
 . /usr/local/share/chruby/chruby.sh
-chruby ruby-{{ ruby_versions[0] }}
+. /usr/local/share/chruby/auto.sh

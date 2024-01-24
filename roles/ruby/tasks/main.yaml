@@ -66,7 +66,13 @@
   loop: "{{ ruby_versions }}"
 
 - name: Copy bashrc script
-  template:
+  copy:
     src: chruby.sh
     dest: ~/.bashrc.d/
+    mode: 0664
+
+- name: Copy ruby-version
+  copy:
+    src: ruby-version
+    dest: ~/.ruby-version
     mode: 0664
