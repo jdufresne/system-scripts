@@ -72,7 +72,7 @@
     mode: 0664
 
 - name: Copy ruby-version
-  copy:
+  template:
     src: ruby-version
     dest: ~/.ruby-version
     mode: 0664
