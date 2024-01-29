@@ -5,7 +5,7 @@ set -u
 
 root=$(git rev-parse --show-toplevel)
 
-cat << EOF > ${root}/tests/test_mysql.py
+cat << EOF > "${root}/tests/test_mysql.py"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -29,6 +29,6 @@ PASSWORD_HASHERS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 EOF
 
-pushd ${root}/tests
+pushd "${root}/tests"
 PYTHONPATH=${root} python -b -Wa runtests.py --noinput --settings test_mysql "$@"
 popd
