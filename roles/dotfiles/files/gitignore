@@ -1,6 +1,9 @@
 # Editor files
 *~
 
+# VCS
+.git/
+
 # JavaScript
 node_modules/
 
