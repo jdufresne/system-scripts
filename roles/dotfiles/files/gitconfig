@@ -49,6 +49,3 @@ ff = only
 
 [push]
 autoSetupRemote = true
-
-[rerere]
-enabled = true
