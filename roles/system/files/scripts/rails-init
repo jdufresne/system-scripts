@@ -32,6 +32,8 @@ def main():
     )
     root = Path(p.stdout.strip())
     project = root.name
+    if str(root).startswith(str(Path.home() / "devel" / "worktrees")):
+        project = f"{root.parent.name}_{project}"
 
     subprocess.run(["bundle", "install"], check=True)
     if os.path.exists("package-lock.json"):
@@ -40,6 +42,7 @@ def main():
         subprocess.run(["pnpm", "install"], check=True)
 
     database = project.replace("-", "_")
+    database = project.replace("/", "_")
     database_config = {
         "development": {
             "adapter": "postgresql",
