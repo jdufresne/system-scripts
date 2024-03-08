@@ -2,7 +2,7 @@
 
 import argparse
 import functools
-import pathlib
+from pathlib import Path
 import subprocess
 import sys
 import urllib
@@ -71,9 +71,9 @@ def main():
             print(msg)
 
             if repo_info["fork"]:
-                repo_path = args.dest / repo_info["parent"]["full_name"]
+                repo_path = dest / f"{repo_info["parent"]["full_name"]}.git"
             else:
-                repo_path = args.dest / repo_info["full_name"]
+                repo_path = dest / f"{repo_info["full_name"]}.git"
             repo_path.parent.mkdir(exist_ok=True)
 
             if not repo_path.is_dir():
