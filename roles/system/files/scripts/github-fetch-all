@@ -15,7 +15,6 @@ PREFERRED_BRANCH = "main"
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--token", required=True)
-    parser.add_argument("dest", type=pathlib.Path)
     return parser.parse_args()
 
 
@@ -57,7 +56,8 @@ class GitHub:
 
 def main():
     args = parse_args()
-    args.dest.mkdir(parents=True, exist_ok=True)
+    dest = Path.home() / "devel" / "repos"
+    dest.mkdir(parents=True, exist_ok=True)
 
     github = GitHub(args.token)
 
@@ -77,7 +77,7 @@ def main():
             repo_path.parent.mkdir(exist_ok=True)
 
             if not repo_path.is_dir():
-                cmd = ["git", "-C", repo_path.parent, "clone", repo_info["ssh_url"]]
+                cmd = ["git", "-C", repo_path.parent, "clone", "--bare", repo_info["ssh_url"]]
                 subprocess.run(cmd, check=True)
 
             if repo_info["fork"]:
@@ -98,9 +98,6 @@ def main():
                     ]
                     subprocess.run(cmd, check=True)
 
-            cmd = ["git", "-C", repo_path, "diff", "--exit-code"]
-            subprocess.run(cmd, check=True)
-
             default_branch = repo_info["default_branch"]
             expected_default_branch = (
                 repo_info["parent"]["default_branch"]
@@ -119,20 +116,6 @@ def main():
             cmd = ["git", "-C", repo_path, "fetch", "--all", "--prune"]
             subprocess.run(cmd, check=True)
 
-            cmd = ["git", "-C", repo_path, "checkout", default_branch]
-            subprocess.run(cmd, check=True)
-
-            remote = "upstream" if repo_info["fork"] else "origin"
-            cmd = [
-                "git",
-                "-C",
-                repo_path,
-                "reset",
-                "--hard",
-                f"{remote}/{default_branch}",
-            ]
-            subprocess.run(cmd, check=True)
-
             if repo_info["fork"]:
                 cmd = [
                     "git",
@@ -145,9 +128,6 @@ def main():
                     default_branch,
                 ]
                 subprocess.run(cmd, check=True)
-
-            cmd = ["git", "-C", repo_path, "clean", "-dxff"]
-            subprocess.run(cmd, check=True)
 
             print()
 
