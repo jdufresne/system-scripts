@@ -6,11 +6,15 @@ function git-workon() {
         return 1
     fi
 
-    branch="${1}"
-    git_root=$(git rev-parse --show-toplevel)
-
     repos_base="${HOME}/devel/repos/"
     worktrees_base="${HOME}/devel/worktrees/"
+
+    branch="${1}"
+    if [[ $(pwd) =~ ^"${repos_base}".*\.git$ ]]; then
+        git_root=$(pwd)
+    else
+        git_root=$(git rev-parse --show-toplevel)
+    fi
 
     if [[ "${git_root}" =~ ^"${repos_base}" ]]; then
         repo_dir="${git_root}"
@@ -25,7 +29,7 @@ function git-workon() {
     fi
 
     if [[ ! -d "${worktree_dir}" ]]; then
-        git worktree add -b "${branch}" "${worktree_dir}"
+        git worktree add "${worktree_dir}" "${branch}"
     fi
 
     cd "${worktree_dir}"
