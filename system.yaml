@@ -3,7 +3,6 @@
     - init
     - dnf
     - desktop
-    - django
     - docker
     - dotfiles
     - emacs

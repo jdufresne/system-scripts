@@ -33,7 +33,5 @@
     dest: "~/.bashrc.d/{{ item }}"
     mode: 0664
   loop:
-    - django.sh
-    - project.sh
     - ripgrep.sh
     - scripts.sh
