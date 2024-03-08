@@ -71,13 +71,13 @@ def main():
             print(msg)
 
             if repo_info["fork"]:
-                repo_path = dest / f"{repo_info["parent"]["full_name"]}.git"
+                repo_path = dest / f"{repo_info["parent"]["full_name"]}"
             else:
-                repo_path = dest / f"{repo_info["full_name"]}.git"
+                repo_path = dest / f"{repo_info["full_name"]}"
             repo_path.parent.mkdir(exist_ok=True)
 
             if not repo_path.is_dir():
-                cmd = ["git", "-C", repo_path.parent, "clone", "--bare", repo_info["ssh_url"]]
+                cmd = ["git", "-C", repo_path.parent, "clone", repo_info["ssh_url"], repo_path]
                 subprocess.run(cmd, check=True)
 
             if repo_info["fork"]:

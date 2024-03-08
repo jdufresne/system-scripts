@@ -10,11 +10,7 @@ function git-workon() {
     worktrees_base="${HOME}/devel/worktrees/"
 
     branch="${1}"
-    if [[ $(pwd) =~ ^"${repos_base}".*\.git$ ]]; then
-        git_root=$(pwd)
-    else
-        git_root=$(git rev-parse --show-toplevel)
-    fi
+    git_root=$(git rev-parse --show-toplevel)
 
     if [[ "${git_root}" =~ ^"${repos_base}" ]]; then
         repo_dir="${git_root}"
