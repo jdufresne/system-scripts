@@ -25,7 +25,7 @@ function git-workon() {
     fi
 
     if [[ ! -d "${worktree_dir}" ]]; then
-        git worktree add "${worktree_dir}" "${branch}"
+        git worktree add -b "${branch}" "${worktree_dir}"
     fi
 
     cd "${worktree_dir}"
