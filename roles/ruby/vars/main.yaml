@@ -3,3 +3,4 @@ ruby_install_version: 0.9.3
 ruby_versions:
   - 3.2.3
   - 3.3.0
+  - 3.3.1
