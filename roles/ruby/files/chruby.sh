@@ -4,6 +4,6 @@
 . /usr/local/share/chruby/auto.sh
 
 alias be="bundle exec"
-alias rails="bundle exec rails"
+alias rails="bin/rails"
 alias rake="bundle exec rake"
 alias rspec="bundle exec rspec"

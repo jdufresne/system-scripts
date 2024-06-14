@@ -72,19 +72,20 @@ def main():
     subprocess.run(["createdb", "--host", "localhost", f"{database}_test"], check=True)
 
     if args.migrations:
-        subprocess.run(["bundle", "exec", "rails", "db:migrate"], check=True)
+        subprocess.run(["bin/rails", "db:migrate"], check=True)
 
     if args.sync:
-        subprocess.run(["bundle", "exec", "rails", "sync"], check=True)
+        subprocess.run(["bin/rails", "sync"], check=True)
 
     bootstrap = args.bootstrap
     if bootstrap is None:
         bootstrap = not args.template and args.sync
+
     if bootstrap:
-        subprocess.run(["bundle", "exec", "rails", "bootstrap"], check=True)
+        subprocess.run(["bin/rails", "bootstrap"], check=True)
 
     if args.features:
-        subprocess.run(["bundle", "exec", "rails", "bootstrap:features"], check=True)
+        subprocess.run(["bin/rails", "bootstrap:features"], check=True)
 
 
 if __name__ == "__main__":
