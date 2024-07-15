@@ -2,6 +2,7 @@
   dnf:
     name:
       - emacs
+      - emacs-gtk+x11
       - levien-inconsolata-fonts
       - mozilla-fira-fonts-common
       - mozilla-fira-mono-fonts
