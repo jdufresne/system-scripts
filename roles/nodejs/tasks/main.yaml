@@ -1,3 +1,9 @@
+- name: Configure npm
+  copy:
+    src: npmrc
+    dest: ~/.npmrc
+    mode: 0600
+
 - name: Install npm
   dnf:
     name:
