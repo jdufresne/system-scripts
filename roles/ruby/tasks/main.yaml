@@ -1,9 +1,12 @@
 - name: Install Ruby
   dnf:
     name:
+      - ImageMagick
+      - ImageMagick-devel
       - libsass
       - libsass-devel
       - libyaml-devel
+      - potrace
       - readline-devel
       - ruby
       - ruby-devel
