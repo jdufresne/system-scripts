@@ -6,7 +6,6 @@
     - docker
     - dotfiles
     - emacs
-    - flatpak
     - nodejs
     - postgresql
     - python
