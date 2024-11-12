@@ -1,11 +1,13 @@
-- name: Install Redis
+- name: Install Valkey
   dnf:
-    name: redis
+    name:
+      - valkey
+      - valkey-compat-redis
   become: yes
 
-- name: Enable Redis server
+- name: Enable Valkey server
   systemd:
-    name: redis
+    name: valkey
     enabled: yes
     state: started
   become: yes
