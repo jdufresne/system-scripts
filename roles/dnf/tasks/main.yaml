@@ -35,7 +35,7 @@
 
 - name: Enable DNF automatic timer
   systemd:
-    name: dnf-automatic-install.timer
+    name: dnf5-automatic.timer
     enabled: yes
     state: started
   become: yes
