@@ -14,23 +14,10 @@
       - fedora-workstation-repositories
   become: yes
 
-- name: Configure DNF
-  ini_file:
-    path: /etc/dnf/dnf.conf
-    section: main
-    option: "{{ item.option }}"
-    value: "{{ item.value }}"
-    mode: 0644
-  become: yes
-  loop:
-    - option: fastestmirror
-      value: 1
-    - option: max_parallel_downloads
-      value: 10
-
 - name: Install DNF plugins
   dnf:
-    name: dnf-automatic
+    name:
+      - dnf5-plugin-automatic
   become: yes
 
 - name: Enable DNF automatic timer
