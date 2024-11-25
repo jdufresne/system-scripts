@@ -20,6 +20,13 @@
       - dnf5-plugin-automatic
   become: yes
 
+- name: Install dnf5-plugin-automatic configuration
+  copy:
+    dest: /etc/dnf/dnf5-plugins/automatic.conf
+    src: automatic.conf
+    mode: 0644
+  become: yes
+
 - name: Enable DNF automatic timer
   systemd:
     name: dnf5-automatic.timer
