@@ -9,7 +9,6 @@
     - nodejs
     - postgresql
     - python
-    - redis
     - ruby
     - system
     - vagrant
