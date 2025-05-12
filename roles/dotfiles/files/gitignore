@@ -2,6 +2,7 @@
 *~
 
 # VCS
+*.orig
 .git/
 
 # JavaScript
