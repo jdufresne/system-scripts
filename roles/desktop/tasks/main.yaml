@@ -5,7 +5,6 @@
       - deluge-gtk
       - gimp
       - python3-psutil # For dconf
-      - thunderbird
   become: yes
 
 - import_tasks: chrome.yaml
