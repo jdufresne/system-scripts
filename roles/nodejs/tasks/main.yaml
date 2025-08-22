@@ -17,12 +17,15 @@
   environment:
     npm_config_prefix: ~/.npm-global
 
-- name: Install typescript-language-server npm package
+- name: Install NPM modules
   npm:
-    name: typescript-language-server
+    name: "{{ item }}"
     global: yes
   environment:
     npm_config_prefix: ~/.npm-global
+  loop:
+    - "@anthropic-ai/claude-code"
+    - "typescript-language-server"
 
 - name: Install npm.sh
   copy:
