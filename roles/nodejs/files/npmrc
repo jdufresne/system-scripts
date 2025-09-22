@@ -1,3 +1,5 @@
 audit=false
 fund=false
+ignore-scripts=true
 prefer-offline=true
+save-exact=true
