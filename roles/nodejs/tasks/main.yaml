@@ -24,7 +24,7 @@
   environment:
     npm_config_prefix: ~/.npm-global
   loop:
-    - "@anthropic-ai/claude-code"
+    - "prettier"
     - "typescript-language-server"
 
 - name: Install npm.sh
