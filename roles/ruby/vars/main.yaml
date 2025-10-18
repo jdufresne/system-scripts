@@ -1,5 +1,5 @@
 chruby_version: 0.3.9
 ruby_install_version: 0.10.1
 ruby_versions:
+  - 3.4.7
   - 3.4.6
-  - 3.4.5
