@@ -2,4 +2,4 @@
   dnf:
     name:
       - vagrant
-g  become: yes
+  become: yes
