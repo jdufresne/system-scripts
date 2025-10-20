@@ -1,12 +1,5 @@
 - name: Install packages
   dnf:
     name:
-      - akmod-VirtualBox
-      - kmod-VirtualBox
       - vagrant
-      - VirtualBox
-      - VirtualBox-devel
-      - virtualbox-guest-additions
-      - VirtualBox-kmodsrc
-      - VirtualBox-server
-  become: yes
+g  become: yes
