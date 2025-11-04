@@ -1,34 +1,23 @@
+- name: Download nvm
+  get_url:
+    url: "https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_version }}/install.sh"
+    dest: "{{ cache_dir }}/nvm-{{ nvm_version }}.sh"
+  register: nvm_download
+
+- name: Intall nvm
+  command:
+    cmd: sh {{ nvm_download.dest }}
+
+- name: Install Node.js versions
+  shell:
+    cmd: |
+      export NVM_DIR=${HOME}/.nvm
+      . ${NVM_DIR}/nvm.sh
+      nvm install {{ item }}
+  loop: "{{ node_versions }}"
+
 - name: Configure npm
   copy:
     src: npmrc
     dest: ~/.npmrc
     mode: 0600
-
-- name: Install npm
-  dnf:
-    name:
-      - npm
-  become: yes
-
-- name: Install pnpm
-  npm:
-    name: pnpm
-    global: yes
-  environment:
-    npm_config_prefix: ~/.npm-global
-
-- name: Install NPM modules
-  npm:
-    name: "{{ item }}"
-    global: yes
-  environment:
-    npm_config_prefix: ~/.npm-global
-  loop:
-    - "prettier"
-    - "typescript-language-server"
-
-- name: Install npm.sh
-  copy:
-    src: npm.sh
-    dest: ~/.bashrc.d/
-    mode: 0664
