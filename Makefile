@@ -7,10 +7,7 @@ all: /usr/bin/ansible-playbook
 
 SHELL_FILES := $(shell find -name \*.sh -print)
 SHELL_FILES += \
-	bootstrap \
-	roles/system/files/scripts/djt \
-	roles/system/files/scripts/djtmy \
-	roles/system/files/scripts/djtpg
+	bootstrap
 
 PHONY_TARET: shellcheck
 shellcheck:

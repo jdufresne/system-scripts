@@ -12,7 +12,7 @@ function worktree() {
 }
 
 function git-workon() {
-    if [ "$#" -ne 1 ]; then
+    if [[ "$#" -ne 1 ]]; then
         printf "Wrong number of arguments (given %d expected 1)\n" "${#}" 1>&2
         return 1
     fi
@@ -40,7 +40,7 @@ function git-workon() {
 }
 
 function git-workoff() {
-    if [ "$#" -ne 0 ]; then
+    if [[ "$#" -ne 0 ]]; then
         printf "Wrong number of arguments (given %d expected 0)\n" "${#}" 1>&2
         exit 1
     fi

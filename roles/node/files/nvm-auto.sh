@@ -1,7 +1,7 @@
 #!/bin/bash
 
 autoload_nvmrc() {
-    if [ -f .nvmrc ]; then
+    if [[ -f .nvmrc ]]; then
         nvm use --silent
     fi
 }
