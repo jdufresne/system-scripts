@@ -6,7 +6,7 @@
     - docker
     - dotfiles
     - emacs
-    - nodejs
+    - node
     - postgresql
     - python
     - ruby
