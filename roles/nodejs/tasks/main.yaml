@@ -7,6 +7,8 @@
 - name: Intall nvm
   command:
     cmd: sh {{ nvm_download.dest }}
+  environment:
+    PROFILE: ~/.bashrc.d/nvm.sh
 
 - name: Install Node.js versions
   shell:
@@ -24,6 +26,6 @@
 
 - name: Copy bashrc script
   copy:
-    src: nvm.sh
+    src: nvm-auto.sh
     dest: ~/.bashrc.d/
     mode: 0664
