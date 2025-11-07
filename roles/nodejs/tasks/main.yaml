@@ -21,3 +21,9 @@
     src: npmrc
     dest: ~/.npmrc
     mode: 0600
+
+- name: Copy bashrc script
+  copy:
+    src: nvm.sh
+    dest: ~/.bashrc.d/
+    mode: 0664
