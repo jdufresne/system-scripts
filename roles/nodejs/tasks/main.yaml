@@ -4,11 +4,19 @@
     dest: "{{ cache_dir }}/nvm-{{ nvm_version }}.sh"
   register: nvm_download
 
+- name: Create ~/.bashrc.d/nvm.sh
+  file:
+    path: "{{ ansible_env.HOME }}/.bashrc.d/nvm.sh"
+    state: touch
+    mode: 0664
+
 - name: Intall nvm
   command:
-    cmd: sh {{ nvm_download.dest }}
+    argv:
+      - sh
+      - "{{ nvm_download.dest }}"
   environment:
-    PROFILE: ~/.bashrc.d/nvm.sh
+    PROFILE: "{{ ansible_env.HOME }}/.bashrc.d/nvm.sh"
 
 - name: Install Node.js versions
   shell:
