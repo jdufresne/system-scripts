@@ -9,9 +9,10 @@
   become: true
 
 - ansible.builtin.import_tasks: chrome.yaml
-- ansible.builtin.import_tasks: firefox.yaml
+
 - name: Disable Bluetooth
   ansible.builtin.command: rfkill block bluetooth
+
 - name: Configure GNOME Dash favorite apps
   community.general.dconf:
     key: /org/gnome/shell/favorite-apps
