@@ -1,17 +1,18 @@
+---
 - name: Download nvm
-  get_url:
+  ansible.builtin.get_url:
     url: "https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_version }}/install.sh"
     dest: "{{ cache_dir }}/nvm-{{ nvm_version }}.sh"
   register: nvm_download
 
 - name: Create ~/.bashrc.d/nvm.sh
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.bashrc.d/nvm.sh"
     state: touch
-    mode: 0664
+    mode: "0664"
 
 - name: Intall nvm
-  command:
+  ansible.builtin.command:
     argv:
       - sh
       - "{{ nvm_download.dest }}"
@@ -19,7 +20,7 @@
     PROFILE: "{{ ansible_env.HOME }}/.bashrc.d/nvm.sh"
 
 - name: Install Node.js versions
-  shell:
+  ansible.builtin.shell:
     cmd: |
       export NVM_DIR=${HOME}/.nvm
       . ${NVM_DIR}/nvm.sh
@@ -27,13 +28,13 @@
   loop: "{{ node_versions }}"
 
 - name: Configure npm
-  copy:
+  ansible.builtin.copy:
     src: npmrc
     dest: ~/.npmrc
-    mode: 0600
+    mode: "0600"
 
 - name: Copy bashrc script
-  copy:
+  ansible.builtin.copy:
     src: nvm-auto.sh
     dest: ~/.bashrc.d/
-    mode: 0664
+    mode: "0664"

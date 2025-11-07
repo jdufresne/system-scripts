@@ -1,20 +1,19 @@
+---
 - name: Install additional packages
-  dnf:
+  ansible.builtin.dnf:
     name:
       - dconf-editor
       - deluge-gtk
       - gimp
       - python3-psutil # For dconf
-  become: yes
+  become: true
 
-- import_tasks: chrome.yaml
-- import_tasks: firefox.yaml
-
+- ansible.builtin.import_tasks: chrome.yaml
+- ansible.builtin.import_tasks: firefox.yaml
 - name: Disable Bluetooth
-  command: rfkill block bluetooth
-
+  ansible.builtin.command: rfkill block bluetooth
 - name: Configure GNOME Dash favorite apps
-  dconf:
+  community.general.dconf:
     key: /org/gnome/shell/favorite-apps
     value: >-
       ['org.mozilla.firefox.desktop',
@@ -24,7 +23,7 @@
       'org.gnome.Rhythmbox3.desktop']
 
 - name: Tweak GNOME configuration
-  dconf:
+  community.general.dconf:
     key: "{{ item.key }}"
     value: "{{ item.value }}"
   loop:

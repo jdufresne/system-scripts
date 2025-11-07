@@ -1,20 +1,21 @@
+---
 - name: Install git tools
-  dnf:
+  ansible.builtin.dnf:
     name:
       - gh
       - meld
-  become: yes
+  become: true
 
 - name: Install git-sync-upstream
-  pip:
+  ansible.builtin.pip:
     name: git-sync-upstream==1.0.5
     extra_args: --user
 
 - name: Copy dot files
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "~/.{{ item }}"
-    mode: 0664
+    mode: "0664"
   loop:
     - gitconfig
     - gitignore
@@ -22,16 +23,16 @@
     - ripgreprc
 
 - name: Create ~/.bashrc.d directory
-  file:
+  ansible.builtin.file:
     path: ~/.bashrc.d
     state: directory
-    mode: 0775
+    mode: "0775"
 
 - name: Copy bashrc scripts
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "~/.bashrc.d/{{ item }}"
-    mode: 0664
+    mode: "0664"
   loop:
     - ripgrep.sh
     - scripts.sh

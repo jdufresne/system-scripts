@@ -1,6 +1,7 @@
+---
 - name: Install PostgreSQL
-  dnf:
+  ansible.builtin.dnf:
     name:
       - postgresql
       - postgresql-contrib
-  become: yes
+  become: true

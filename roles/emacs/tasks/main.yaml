@@ -1,5 +1,6 @@
+---
 - name: Install Emacs
-  dnf:
+  ansible.builtin.dnf:
     name:
       - emacs
       - emacs-gtk+x11
@@ -9,34 +10,34 @@
       - mozilla-fira-sans-fonts
       - nodejs-bash-language-server
       - ripgrep
-  become: yes
+  become: true
   notify: Restart Emacs daemon
 
 - name: Emacs configuration
-  git:
+  ansible.builtin.git:
     repo: git@github.com:jdufresne/emacs-init.git
     dest: ~/.emacs.d
     version: main
   notify: Restart Emacs daemon
 
 - name: Override emacs.service
-  template:
+  ansible.builtin.template:
     dest: ~/.config/systemd/user/emacs.service.d/
     src: override.conf
-    mode: 0664
+    mode: "0664"
   notify:
     - Reload systemd
     - Restart Emacs daemon
 
 - name: Install Emacs client desktop file
-  copy:
+  ansible.builtin.copy:
     dest: ~/.local/share/applications/
     src: emacsclient.desktop
-    mode: 0664
+    mode: "0664"
 
 - name: Enable Emacs daemon
-  systemd:
+  ansible.builtin.systemd:
     name: emacs
     scope: user
-    enabled: yes
+    enabled: true
     state: started

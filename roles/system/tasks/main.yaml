@@ -1,11 +1,11 @@
+---
 - name: Set time zone
-  timezone:
+  community.general.timezone:
     name: America/Vancouver
 
-- import_tasks: ssh.yaml
-
+- ansible.builtin.import_tasks: ssh.yaml
 - name: Install additional packages
-  dnf:
+  ansible.builtin.dnf:
     name:
       - ansible-lint
       - ccache
@@ -15,48 +15,48 @@
       - kernel-devel
       - rpmconf
       - sqlite-devel
-  become: yes
+  become: true
 
 - name: Install scripts
-  copy:
+  ansible.builtin.copy:
     src: scripts/
     dest: ~/.local/bin/
-    mode: 0775
+    mode: "0775"
 
 - name: Remove system AWS CLI
-  dnf:
+  ansible.builtin.dnf:
     name: awscli
     state: absent
-  become: yes
+  become: true
 
 - name: Download AWS CLI version 2
-  get_url:
+  ansible.builtin.get_url:
     url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
     dest: "{{ cache_dir }}/"
   register: awscliv2
 
 - name: Unzip AWS CLI version 2
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ awscliv2.dest }}"
     dest: "{{ cache_dir }}/"
     creates: "{{ cache_dir }}/aws"
 
 - name: Install AWS CLI version 2
-  command:
+  ansible.builtin.command:
     cmd: "{{ cache_dir }}/aws/install"
     creates: /usr/local/bin/aws
-  become: yes
+  become: true
 
 - name: Download Session Manager plugin
-  get_url:
+  ansible.builtin.get_url:
     url: https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm
     dest: "{{ cache_dir }}/"
   register: session_manager_plugin
 
 - name: Install Session Manager plugin
-  dnf:
+  ansible.builtin.dnf:
     name: "{{ session_manager_plugin.dest }}"
-    disable_gpg_check: yes
-  become: yes
+    disable_gpg_check: true
+  become: true
 
-- import_tasks: gh-cli.yaml
+- ansible.builtin.import_tasks: gh-cli.yaml

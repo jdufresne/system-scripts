@@ -1,31 +1,32 @@
+---
 - name: Create SSH conf.d directory
-  file:
+  ansible.builtin.file:
     path: ~/.ssh/conf.d
     state: directory
-    mode: 0700
+    mode: "0700"
 
 - name: Write SSH config
-  copy:
+  ansible.builtin.copy:
     src: ssh/
     dest: ~/.ssh/
-    mode: 0600
+    mode: "0600"
 
 - name: Check host keys
-  command: "ssh-keygen -F {{ item }}"
+  ansible.builtin.command: "ssh-keygen -F {{ item }}"
   loop: "{{ ssh_hosts }}"
   register: check_host_keys
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false
 
 - name: Gather host keys
-  command: "ssh-keyscan {{ item.item }}"
+  ansible.builtin.command: "ssh-keyscan {{ item.item }}"
   loop: "{{ check_host_keys.results }}"
   when: item.failed
   register: host_keys
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: Add host keys to known_hosts
-  known_hosts:
+  ansible.builtin.known_hosts:
     name: "{{ item.item.item }}"
     key: "{{ item.stdout }}"
   loop: "{{ host_keys.results }}"

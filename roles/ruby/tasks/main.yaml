@@ -1,5 +1,6 @@
+---
 - name: Install Ruby
-  dnf:
+  ansible.builtin.dnf:
     name:
       - ImageMagick
       - ImageMagick-devel
@@ -12,70 +13,70 @@
       - ruby-devel
       - rubygem-bundler
       - rubygem-irb
-  become: yes
+  become: true
 
 - name: Create Bundler directory
-  file:
+  ansible.builtin.file:
     path: ~/.bundle
     state: directory
-    mode: 0775
+    mode: "0775"
 
 - name: Copy Bundler configuration
-  copy:
+  ansible.builtin.copy:
     src: bundle.config
     dest: ~/.bundle/config
-    mode: 0664
+    mode: "0664"
 
 - name: Download chruby
-  get_url:
+  ansible.builtin.get_url:
     url: "https://github.com/postmodern/chruby/archive/v{{ chruby_version }}.tar.gz"
     dest: "{{ cache_dir }}/chruby-{{ chruby_version }}.tar.gz"
   register: chruby_download
 
 - name: Unpack chruby archive
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ chruby_download.dest }}"
     dest: "{{ cache_dir }}"
     creates: "{{ cache_dir }}/chruby-{{ chruby_version }}"
 
 - name: Install chruby
-  make:
+  community.general.make:
     target: install
     chdir: "{{ cache_dir }}/chruby-{{ chruby_version }}"
-  become: yes
+  become: true
 
 - name: Download ruby-install
-  get_url:
+  ansible.builtin.get_url:
     url: "https://github.com/postmodern/ruby-install/archive/v{{ ruby_install_version }}.tar.gz"
     dest: "{{ cache_dir }}/ruby-install-{{ ruby_install_version }}.tar.gz"
   register: ruby_install_download
 
 - name: Unpack ruby-install archive
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ ruby_install_download.dest }}"
     dest: "{{ cache_dir }}"
     creates: "{{ cache_dir }}/ruby-install-{{ ruby_install_version }}"
 
 - name: Install ruby-install
-  make:
+  community.general.make:
     target: install
     chdir: "{{ cache_dir }}/ruby-install-{{ ruby_install_version }}"
-  become: yes
+  become: true
 
 - name: Install Ruby versions
-  command:
+  ansible.builtin.command:
     cmd: "ruby-install --no-install-deps --src-dir {{ cache_dir }}/rubies ruby {{ item }}"
     creates: "~/.rubies/ruby-{{ item }}"
   loop: "{{ ruby_versions }}"
 
 - name: Copy bashrc script
-  copy:
+  ansible.builtin.copy:
     src: chruby.sh
     dest: ~/.bashrc.d/
-    mode: 0664
+    mode: "0664"
 
 - name: Copy ruby-version
-  template:
+  ansible.builtin.template:
     src: ruby-version
     dest: ~/.ruby-version
-    mode: 0664
+    mode: "0664"

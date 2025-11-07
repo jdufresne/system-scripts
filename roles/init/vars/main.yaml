@@ -1,1 +1,2 @@
+---
 cache_dir: "{{ ansible_user_dir }}/.cache/system-scripts"

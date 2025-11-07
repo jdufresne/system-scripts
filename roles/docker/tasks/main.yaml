@@ -1,6 +1,7 @@
+---
 - name: Install podman
-  dnf:
+  ansible.builtin.dnf:
     name:
       - podman
       - podman-docker
-  become: yes
+  become: true

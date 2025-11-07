@@ -1,8 +1,9 @@
+---
 - name: Install Python
-  dnf:
+  ansible.builtin.dnf:
     name:
       - black
       - python3
       - python3-isort
       - twine
-  become: yes
+  become: true

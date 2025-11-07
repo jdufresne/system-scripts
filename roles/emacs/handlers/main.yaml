@@ -1,10 +1,11 @@
+---
 - name: Reload systemd
-  systemd:
+  ansible.builtin.systemd:
     scope: user
-    daemon_reload: yes
+    daemon_reload: true
 
 - name: Restart Emacs daemon
-  systemd:
+  ansible.builtin.systemd:
     name: emacs
     scope: user
     state: restarted

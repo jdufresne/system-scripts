@@ -1,5 +1,6 @@
+---
 - name: Install packages
-  dnf:
+  ansible.builtin.dnf:
     name:
       - vagrant
-  become: yes
+  become: true
