@@ -36,4 +36,3 @@
   loop:
     - ripgrep.sh
     - scripts.sh
-    - git-worktree-wrapper.sh
