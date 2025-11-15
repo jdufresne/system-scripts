@@ -18,19 +18,19 @@
 - name: Install DNF plugins
   ansible.builtin.dnf:
     name:
-      - dnf5-plugin-automatic
+      - dnf-automatic
   become: true
 
-- name: Install dnf5-plugin-automatic configuration
+- name: Install dnf-automatic configuration
   ansible.builtin.copy:
-    dest: /etc/dnf/dnf5-plugins/automatic.conf
+    dest: /etc/dnf/automatic.conf
     src: automatic.conf
     mode: "0644"
   become: true
 
 - name: Enable DNF automatic timer
   ansible.builtin.systemd:
-    name: dnf5-automatic.timer
+    name: dnf-automatic.timer
     enabled: true
     state: started
   become: true
