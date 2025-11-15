@@ -3,7 +3,7 @@
 autoload_nvmrc() {
     if [ "${PWD}" != "${_NVM_LAST_DIR}" ]; then
         if [ -f .nvmrc ]; then
-            nvm use
+            nvm use --silent
         fi
         export _NVM_LAST_DIR="${PWD}"
     fi
