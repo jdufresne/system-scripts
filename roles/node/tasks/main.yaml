@@ -3,6 +3,7 @@
   ansible.builtin.get_url:
     url: "https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_version }}/install.sh"
     dest: "{{ cache_dir }}/nvm-{{ nvm_version }}.sh"
+    mode: "0600"
   register: nvm_download
 
 - name: Create ~/.bashrc.d/nvm.sh

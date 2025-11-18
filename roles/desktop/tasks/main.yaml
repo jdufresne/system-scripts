@@ -8,7 +8,8 @@
       - python3-psutil # For dconf
   become: true
 
-- ansible.builtin.import_tasks: chrome.yaml
+- name: Chrome
+  ansible.builtin.import_tasks: chrome.yaml
 
 - name: Disable Bluetooth
   ansible.builtin.command: rfkill block bluetooth

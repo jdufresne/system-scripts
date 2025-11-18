@@ -31,6 +31,7 @@
   ansible.builtin.get_url:
     url: "https://github.com/postmodern/chruby/archive/v{{ chruby_version }}.tar.gz"
     dest: "{{ cache_dir }}/chruby-{{ chruby_version }}.tar.gz"
+    mode: "0600"
   register: chruby_download
 
 - name: Unpack chruby archive
@@ -49,6 +50,7 @@
   ansible.builtin.get_url:
     url: "https://github.com/postmodern/ruby-install/archive/v{{ ruby_install_version }}.tar.gz"
     dest: "{{ cache_dir }}/ruby-install-{{ ruby_install_version }}.tar.gz"
+    mode: "0600"
   register: ruby_install_download
 
 - name: Unpack ruby-install archive
