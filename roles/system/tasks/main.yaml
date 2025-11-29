@@ -60,5 +60,3 @@
     name: "{{ session_manager_plugin.dest }}"
     disable_gpg_check: true
   become: true
-
-- ansible.builtin.import_tasks: gh-cli.yaml
