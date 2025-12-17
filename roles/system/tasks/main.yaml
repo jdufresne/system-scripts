@@ -48,14 +48,14 @@
     creates: /usr/local/bin/aws
   become: true
 
-- name: Download Session Manager plugin
+- name: Download AWS Session Manager plugin
   ansible.builtin.get_url:
     url: https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm
     dest: "{{ cache_dir }}/"
     mode: "0600"
   register: session_manager_plugin
 
-- name: Install Session Manager plugin
+- name: Install AWS Session Manager plugin
   ansible.builtin.dnf:
     name: "{{ session_manager_plugin.dest }}"
     disable_gpg_check: true
