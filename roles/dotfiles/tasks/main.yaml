@@ -2,7 +2,6 @@
 - name: Install git tools
   ansible.builtin.dnf:
     name:
-      - gh
       - meld
   become: true
 
