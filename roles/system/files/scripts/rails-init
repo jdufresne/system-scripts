@@ -82,6 +82,8 @@ def main():
     if args.features:
         subprocess.run(["bin/rails", "bootstrap:features"], check=True)
 
+    subprocess.run(["vacuumdb", "--analyze", "--host", "localhost", database], check=True)
+
 
 if __name__ == "__main__":
     main()
