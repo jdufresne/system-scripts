@@ -34,6 +34,8 @@ def main():
     project = root.name
 
     subprocess.run(["bundle", "install"], check=True)
+    if os.path.exists("pnpm-lock.yaml"):
+        subprocess.run(["pnpm", "install"], check=True)
     if os.path.exists("package-lock.json"):
         subprocess.run(["npm", "install", "--no-audit", "--no-fund"], check=True)
 
