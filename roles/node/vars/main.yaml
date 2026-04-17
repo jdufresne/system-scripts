@@ -1,4 +1,5 @@
 ---
 nvm_version: v0.40.3
 node_versions:
+  - v24.15.0
   - v24.14.0
