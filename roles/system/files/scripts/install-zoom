@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+sudo --validate
+
 url=$(curl \
           --fail \
           --no-progress-meter \
