@@ -25,3 +25,4 @@ vendor/bundle/
 
 # Other
 geckodriver.log
+.claude/
