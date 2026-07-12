@@ -80,7 +80,12 @@ def main():
 
     for owner, repos in all_repos.items():
         owner_path = args.path / owner
-        unknown = set(os.listdir(owner_path)).difference(repos)
+        existing = None
+        try:
+            existing = os.listdir(owner_path)
+        except FileNotFoundError:
+            continue
+        unknown = set(existing).difference(repos)
         for d in sorted(unknown):
             print(os.path.join(owner, d))
             if args.delete:
