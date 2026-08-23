@@ -13,6 +13,7 @@
       - graphviz
       - jq
       - kernel-devel
+      - ollama
       - rpmconf
       - sqlite-devel
   become: true
