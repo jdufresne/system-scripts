@@ -22,6 +22,7 @@
   ansible.builtin.command: "ssh-keyscan {{ item.item }}"
   loop: "{{ system_check_host_keys.results }}"
   when: item.failed
+  changed_when: false
   register: system_host_keys
   ignore_errors: true
 
