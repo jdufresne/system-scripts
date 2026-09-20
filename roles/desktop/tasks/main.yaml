@@ -14,7 +14,7 @@
 - name: Check Bluetooth status
   ansible.builtin.command:
     cmd: rfkill --json --output TYPE,SOFT
-  register: bluetooth_status
+  register: desktop_bluetooth_status
   changed_when: false
 
 - name: Disable Bluetooth
@@ -22,7 +22,7 @@
     cmd: rfkill block bluetooth
   when: >
     (
-      bluetooth_status.stdout
+      desktop_bluetooth_status.stdout
       | from_json
       | json_query("rfkilldevices[?type=='bluetooth'].soft")
       | first
