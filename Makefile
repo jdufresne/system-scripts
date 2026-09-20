@@ -1,6 +1,6 @@
 .PHONY: all
 all: /usr/bin/ansible-playbook
-	$< --verbose system.yaml
+	$< --verbose playbook.yaml
 
 /usr/bin/ansible-playbook:
 	sudo dnf -y install ansible
