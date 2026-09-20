@@ -34,3 +34,18 @@
     enabled: true
     state: started
   become: true
+
+- name: Add Claude Code repository
+  ansible.builtin.copy:
+    dest: /etc/yum.repos.d/claude-code.repo
+    src: claude-code.repo
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+
+- name: Install Claude Code
+  ansible.builtin.dnf:
+    name:
+      - claude-code
+  become: true
