@@ -3,7 +3,9 @@
   community.general.timezone:
     name: America/Vancouver
 
-- ansible.builtin.import_tasks: ssh.yaml
+- name: Configure SSH
+  ansible.builtin.import_tasks: ssh.yaml
+
 - name: Install additional packages
   ansible.builtin.dnf:
     name:

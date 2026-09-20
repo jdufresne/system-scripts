@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Configure System
+  hosts: localhost
   roles:
     - init
     - dnf
