@@ -8,7 +8,7 @@
 
 - name: Create ~/.bashrc.d/nvm.sh
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.bashrc.d/nvm.sh"
+    path: "{{ ansible_facts['env']['HOME'] }}/.bashrc.d/nvm.sh"
     state: touch
     mode: "0664"
 
@@ -18,7 +18,7 @@
       - sh
       - "{{ node_nvm_download.dest }}"
   environment:
-    PROFILE: "{{ ansible_env.HOME }}/.bashrc.d/nvm.sh"
+    PROFILE: "{{ ansible_facts['env']['HOME'] }}/.bashrc.d/nvm.sh"
 
 - name: Install Node.js versions
   ansible.builtin.shell:
