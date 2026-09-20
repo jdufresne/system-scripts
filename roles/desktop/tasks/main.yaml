@@ -11,8 +11,23 @@
 - name: Chrome
   ansible.builtin.import_tasks: chrome.yaml
 
+- name: Check Bluetooth status
+  ansible.builtin.command:
+    cmd: rfkill --json --output TYPE,SOFT
+  register: bluetooth_status
+  changed_when: false
+
 - name: Disable Bluetooth
-  ansible.builtin.command: rfkill block bluetooth
+  ansible.builtin.command:
+    cmd: rfkill block bluetooth
+  when: >
+    (
+      bluetooth_status.stdout
+      | from_json
+      | json_query("rfkilldevices[?type=='bluetooth'].soft")
+      | first
+    ) == "unblocked"
+  changed_when: true
 
 - name: Configure GNOME Dash favorite apps
   community.general.dconf:
