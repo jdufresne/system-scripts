@@ -1,10 +1,10 @@
 ---
 - name: Download nvm
   ansible.builtin.get_url:
-    url: "https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_version }}/install.sh"
-    dest: "{{ cache_dir }}/nvm-{{ nvm_version }}.sh"
+    url: "https://raw.githubusercontent.com/nvm-sh/nvm/{{ node_nvm_version }}/install.sh"
+    dest: "{{ cache_dir }}/nvm-{{ node_nvm_version }}.sh"
     mode: "0600"
-  register: nvm_download
+  register: node_nvm_download
 
 - name: Create ~/.bashrc.d/nvm.sh
   ansible.builtin.file:
@@ -16,7 +16,7 @@
   ansible.builtin.command:
     argv:
       - sh
-      - "{{ nvm_download.dest }}"
+      - "{{ node_nvm_download.dest }}"
   environment:
     PROFILE: "{{ ansible_env.HOME }}/.bashrc.d/nvm.sh"
 

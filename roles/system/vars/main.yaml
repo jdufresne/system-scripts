@@ -1,5 +1,5 @@
 ---
-ssh_hosts:
+system_ssh_hosts:
   - 192.168.0.10
   - 192.168.0.30
   - github.com

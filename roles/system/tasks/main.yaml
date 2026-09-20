@@ -37,11 +37,11 @@
     url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
     dest: "{{ cache_dir }}/"
     mode: "0600"
-  register: awscliv2
+  register: system_awscliv2
 
 - name: Unzip AWS CLI version 2
   ansible.builtin.unarchive:
-    src: "{{ awscliv2.dest }}"
+    src: "{{ system_awscliv2.dest }}"
     dest: "{{ cache_dir }}/"
     creates: "{{ cache_dir }}/aws"
 
@@ -49,17 +49,4 @@
   ansible.builtin.command:
     cmd: "{{ cache_dir }}/aws/install"
     creates: /usr/local/bin/aws
-  become: true
-
-- name: Download AWS Session Manager plugin
-  ansible.builtin.get_url:
-    url: https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm
-    dest: "{{ cache_dir }}/"
-    mode: "0600"
-  register: session_manager_plugin
-
-- name: Install AWS Session Manager plugin
-  ansible.builtin.dnf:
-    name: "{{ session_manager_plugin.dest }}"
-    disable_gpg_check: true
   become: true

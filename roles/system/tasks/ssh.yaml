@@ -13,21 +13,21 @@
 
 - name: Check host keys
   ansible.builtin.command: "ssh-keygen -F {{ item }}"
-  loop: "{{ ssh_hosts }}"
-  register: check_host_keys
+  loop: "{{ system_ssh_hosts }}"
+  register: system_check_host_keys
   ignore_errors: true
   changed_when: false
 
 - name: Gather host keys
   ansible.builtin.command: "ssh-keyscan {{ item.item }}"
-  loop: "{{ check_host_keys.results }}"
+  loop: "{{ system_check_host_keys.results }}"
   when: item.failed
-  register: host_keys
+  register: system_host_keys
   ignore_errors: true
 
 - name: Add host keys to known_hosts
   ansible.builtin.known_hosts:
     name: "{{ item.item.item }}"
     key: "{{ item.stdout }}"
-  loop: "{{ host_keys.results }}"
+  loop: "{{ system_host_keys.results }}"
   when: not (item.get('skipped', False) or item.get('failed', False))

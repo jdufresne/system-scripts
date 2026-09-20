@@ -29,21 +29,21 @@
 
 - name: Download chruby
   ansible.builtin.get_url:
-    url: "https://github.com/postmodern/chruby/archive/v{{ chruby_version }}.tar.gz"
-    dest: "{{ cache_dir }}/chruby-{{ chruby_version }}.tar.gz"
+    url: "https://github.com/postmodern/chruby/archive/v{{ ruby_chruby_version }}.tar.gz"
+    dest: "{{ cache_dir }}/chruby-{{ ruby_chruby_version }}.tar.gz"
     mode: "0600"
-  register: chruby_download
+  register: ruby_chruby_download
 
 - name: Unpack chruby archive
   ansible.builtin.unarchive:
-    src: "{{ chruby_download.dest }}"
+    src: "{{ ruby_chruby_download.dest }}"
     dest: "{{ cache_dir }}"
-    creates: "{{ cache_dir }}/chruby-{{ chruby_version }}"
+    creates: "{{ cache_dir }}/chruby-{{ ruby_chruby_version }}"
 
 - name: Install chruby
   community.general.make:
     target: install
-    chdir: "{{ cache_dir }}/chruby-{{ chruby_version }}"
+    chdir: "{{ cache_dir }}/chruby-{{ ruby_chruby_version }}"
   become: true
 
 - name: Download ruby-install
