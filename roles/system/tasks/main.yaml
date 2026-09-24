@@ -15,7 +15,7 @@
       - graphviz
       - jq
       - kernel-devel
-      - ollama
+      - opentofu
       - rpmconf
       - sqlite-devel
   become: true
