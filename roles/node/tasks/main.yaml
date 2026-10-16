@@ -12,19 +12,6 @@
     state: touch
     mode: "0664"
 
-- name: Check installed nvm
-  ansible.builtin.slurp:
-    src: "{{ ansible_facts['env']['HOME'] }}/.nvm/package.json"
-  register: node_nvm_package_json
-  changed_when: false
-  failed_when: false
-
-- name: Parse installed nvm version
-  ansible.builtin.set_fact:
-    node_nvm_installed_version: >-
-      {{ (node_nvm_package_json.content | b64decode | from_json).version }}
-  when: node_nvm_package_json is succeeded
-
 - name: Install nvm
   ansible.builtin.command:
     argv:
@@ -32,11 +19,6 @@
       - "{{ node_nvm_download.dest }}"
   environment:
     PROFILE: "{{ ansible_facts['env']['HOME'] }}/.bashrc.d/nvm.sh"
-  when: >
-    node_nvm_package_json is failed
-    or
-    node_nvm_installed_version != node_nvm_version
-  changed_when: true
 
 - name: Install Node.js versions
   ansible.builtin.shell:

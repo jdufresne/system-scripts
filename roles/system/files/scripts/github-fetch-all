@@ -56,7 +56,7 @@ class GitHub:
 
 def main():
     args = parse_args()
-    dest = Path.home() / "devel" / "repos"
+    dest = Path.home() / "devel"
     dest.mkdir(parents=True, exist_ok=True)
 
     github = GitHub(args.token)
