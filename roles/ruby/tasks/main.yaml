@@ -4,6 +4,7 @@
     name:
       - ImageMagick
       - ImageMagick-devel
+      - libffi-devel
       - libsass
       - libsass-devel
       - libyaml-devel
