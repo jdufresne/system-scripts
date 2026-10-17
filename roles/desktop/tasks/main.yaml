@@ -15,6 +15,14 @@
   ansible.builtin.command:
     cmd: rfkill block bluetooth
 
+- name: Disable sleep/suspend on GDM login screen
+  ansible.builtin.copy:
+    dest: /etc/dconf/db/gdm.d/90-power
+    src: gdm-power
+    mode: "0644"
+  become: true
+  notify: Update dconf databases
+
 - name: Configure GNOME Dash favorite apps
   community.general.dconf:
     key: /org/gnome/shell/favorite-apps
