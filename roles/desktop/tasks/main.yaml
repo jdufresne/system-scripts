@@ -11,10 +11,6 @@
 - name: Chrome
   ansible.builtin.import_tasks: chrome.yaml
 
-- name: Disable Bluetooth
-  ansible.builtin.command:
-    cmd: rfkill block bluetooth
-
 - name: Disable sleep/suspend on GDM login screen
   ansible.builtin.copy:
     dest: /etc/dconf/db/gdm.d/90-power
