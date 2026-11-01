@@ -1,6 +1,0 @@
----
-- name: Update dconf databases
-  ansible.builtin.command:
-    cmd: dconf update
-  become: true
-  changed_when: true
